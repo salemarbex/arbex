@@ -1,17 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, Button } from '@mui/material'
 import { toast } from 'react-toastify'
+import { supabase } from '../../lib/supabase'
 
 const ContactSection = ({ className = '' }) => {
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
         email: '',
-        address: '',
+        purpose: '',
         description: ''
     })
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false)
+    const [purposes, setPurposes] = useState([])
+
+    useEffect(() => {
+        fetchPurposes()
+    }, [])
+
+    const fetchPurposes = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('contact_purposes')
+                .select('*')
+                .eq('is_active', true)
+                .order('display_order', { ascending: true })
+
+            if (error) throw error
+            if (data) setPurposes(data)
+        } catch (error) {
+            console.error('Error fetching contact purposes:', error)
+        }
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -31,6 +52,7 @@ const ContactSection = ({ className = '' }) => {
             newErrors.email = 'Please enter a valid email'
         }
         if (!formData.phone.trim()) newErrors.phone = 'Phone is required'
+        if (!formData.purpose) newErrors.purpose = 'Please select a purpose'
         if (!formData.description.trim()) newErrors.description = 'Message is required'
         return newErrors
     }
@@ -62,7 +84,7 @@ const ContactSection = ({ className = '' }) => {
                     name: '',
                     phone: '',
                     email: '',
-                    address: '',
+                    purpose: '',
                     description: ''
                 })
             } else {
@@ -89,9 +111,9 @@ const ContactSection = ({ className = '' }) => {
                         <span>Floor 1, Office 6</span>
                         <span>Doha, Qatar</span>
                         <h4>Phone</h4>
-                        <span>+974 70202010</span>
+                        <span><a href="tel:+97470202010">+974 70202010</a></span>
                         <h4>Email</h4>
-                        <span>info@arbex.law</span>
+                        <span><a href="mailto:info@arbex.law">info@arbex.law</a></span>
                     </Grid>
                 </Grid>
 
@@ -142,14 +164,18 @@ const ContactSection = ({ className = '' }) => {
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <Grid className="formInput">
-                                        <input
-                                            placeholder="Address (Optional)"
-                                            value={formData.address}
-                                            name="address"
+                                        <select
+                                            value={formData.purpose}
+                                            name="purpose"
                                             onChange={handleChange}
                                             className="form-control"
-                                            type="text"
-                                        />
+                                        >
+                                            <option value="">Select Purpose of Contact</option>
+                                            {purposes.map((p) => (
+                                                <option key={p.id} value={p.label}>{p.label}</option>
+                                            ))}
+                                        </select>
+                                        {errors.purpose && <p className="errorText">{errors.purpose}</p>}
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>

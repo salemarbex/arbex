@@ -48,7 +48,7 @@ const HeaderBottom = props => {
                     container
                     alignItems="center"
                     className="container">
-                    <Grid item xs={8} sm={6} md={3}>
+                    <Grid item xs={8} sm={6} md={3} className="logoGridItem">
                         <Grid className="logo">
                             <Link href="/home">
                                 <img src="/images/logo/arbex.png" alt="Arbex Law" />

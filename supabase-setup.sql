@@ -112,6 +112,33 @@ ALTER TABLE public.awareness DISABLE ROW LEVEL SECURITY;
 GRANT ALL ON public.awareness TO anon;
 GRANT ALL ON public.awareness TO authenticated;
 
+-- =============================================
+-- CONTACT PURPOSES TABLE
+-- =============================================
+DROP TABLE IF EXISTS public.contact_purposes;
+
+CREATE TABLE public.contact_purposes (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    label VARCHAR(255) NOT NULL,
+    display_order INTEGER DEFAULT 0,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE public.contact_purposes DISABLE ROW LEVEL SECURITY;
+GRANT ALL ON public.contact_purposes TO anon;
+GRANT ALL ON public.contact_purposes TO authenticated;
+
+-- Insert default contact purposes
+INSERT INTO public.contact_purposes (label, display_order) VALUES
+    ('General Inquiry', 1),
+    ('Legal Consultation', 2),
+    ('Business Partnership', 3),
+    ('Complaint', 4),
+    ('Other', 5)
+ON CONFLICT DO NOTHING;
+
 -- Create updated_at trigger function
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
@@ -143,6 +170,12 @@ CREATE TRIGGER update_accreditation_logos_updated_at
 DROP TRIGGER IF EXISTS update_client_logos_updated_at ON public.client_logos;
 CREATE TRIGGER update_client_logos_updated_at
     BEFORE UPDATE ON public.client_logos
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+DROP TRIGGER IF EXISTS update_contact_purposes_updated_at ON public.contact_purposes;
+CREATE TRIGGER update_contact_purposes_updated_at
+    BEFORE UPDATE ON public.contact_purposes
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
 

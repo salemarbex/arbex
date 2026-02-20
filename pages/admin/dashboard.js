@@ -99,6 +99,7 @@ const Dashboard = () => {
                                         <li><a href="/admin/consultant-section">Consultant</a> - Image, text, signature</li>
                                         <li><a href="/admin/accreditation">Accreditation</a> - Partner logos</li>
                                         <li><a href="/admin/clients">Clients</a> - Client logos</li>
+                                        <li><a href="/admin/contact-purposes">Contact Purposes</a> - Contact form dropdown options</li>
                                         <li><a href="/admin/awareness">Awareness</a> - Case studies</li>
                                     </ul>
                                     <h4>Quick Actions:</h4>

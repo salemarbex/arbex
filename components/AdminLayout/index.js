@@ -24,6 +24,7 @@ import InfoIcon from '@mui/icons-material/Info'
 import PersonIcon from '@mui/icons-material/Person'
 import VerifiedIcon from '@mui/icons-material/Verified'
 import BusinessIcon from '@mui/icons-material/Business'
+import ContactMailIcon from '@mui/icons-material/ContactMail'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import { supabase } from '../../lib/supabase'
@@ -77,6 +78,7 @@ const AdminLayout = ({ children, title = 'Dashboard' }) => {
         { text: 'Consultant', icon: <PersonIcon />, path: '/admin/consultant-section' },
         { text: 'Accreditation', icon: <VerifiedIcon />, path: '/admin/accreditation' },
         { text: 'Clients', icon: <BusinessIcon />, path: '/admin/clients' },
+        { text: 'Contact Purposes', icon: <ContactMailIcon />, path: '/admin/contact-purposes' },
     ]
 
     const drawer = (

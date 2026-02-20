@@ -127,32 +127,46 @@ body {
 
 .aboutArea {
     padding: 100px 0px 80px;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -30%;
+        transform: translateY(-50%);
+        width: 60%;
+        height: 90%;
+        background: url('/images/logo/arbex.png') no-repeat center center;
+        background-size: contain;
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    > .container {
+        position: relative;
+        z-index: 1;
+    }
 
     .aboutImageWrap {
-        margin: 0px 20px 0px 20px;
+        margin: -25px auto 0 -15px;
         position: relative;
         z-index: 1;
 
         @media (max-width:768px) {
-            margin-bottom: 40px;
-            margin-right: 0;
+            margin: 0 auto 40px;
         }
 
         img {
-            @media (max-width:768px) {
-                width: 100%;
-            }
+            max-width: 100%;
+            height: auto;
+            display: block;
         }
 
         &::before {
-            content: "";
-            background-color: #c0b596;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: -20px;
-            top: -20px;
-            z-index: -1;
+            display: none;
         }
 
         .playBtn {
@@ -1133,9 +1147,11 @@ body {
 
             .logo img {
                 max-height: 55px;
+                margin-left: 15px;
 
                 @media (max-width:768px) {
                     max-height: 40px;
+                    margin-left: 0;
                 }
             }
 
@@ -1144,7 +1160,7 @@ body {
             }
 
             .logoDivider {
-                height: 25px;
+                display: none;
             }
         }
 
@@ -1609,6 +1625,16 @@ body {
 
                 svg {
                     margin-right: 7px;
+                }
+
+                a {
+                    color: inherit;
+                    text-decoration: none;
+                    transition: color 0.3s ease;
+
+                    &:hover {
+                        color: #c0b596;
+                    }
                 }
             }
         }
@@ -3353,19 +3379,72 @@ text-align: center;
 /* Consultant Section */
 .consultantArea {
     background: #f5f5f5;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -30%;
+        transform: translateY(-50%);
+        width: 60%;
+        height: 90%;
+        background: url('/images/logo/arbex.png') no-repeat center center;
+        background-size: contain;
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    > .container {
+        position: relative;
+        z-index: 1;
+    }
 
     .consultantImageWrap {
         margin: 0 0 0 20px;
 
         &::before {
+            display: block;
+            content: "";
+            background-color: #c0b596;
+            width: 100%;
+            height: 100%;
+            position: absolute;
             left: auto;
             right: -20px;
+            top: -20px;
+            z-index: -1;
         }
     }
 }
 
 /* Specialities Section */
 .specialitiesArea {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -30%;
+        transform: translateY(-50%);
+        width: 60%;
+        height: 90%;
+        background: url('/images/logo/arbex.png') no-repeat center center;
+        background-size: contain;
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    > .container {
+        position: relative;
+        z-index: 1;
+    }
+
     .serviceWrap {
         cursor: default;
         
@@ -3384,178 +3463,135 @@ text-align: center;
 .accreditationArea {
     padding: 100px 0;
     background: #151a30;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -30%;
+        transform: translateY(-50%);
+        width: 60%;
+        height: 90%;
+        background: url('/images/logo/arbex.png') no-repeat center center;
+        background-size: contain;
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    > .container {
+        position: relative;
+        z-index: 1;
+    }
 
     .sectionTitle {
         h2, span {
             color: #fff;
         }
     }
+}
 
-    .accreditation-logo {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
+/* Accreditation Grid - Static logos with hover glow */
+.accreditation-grid-wrapper {
+    --mouse-x: 0px;
+    --mouse-y: 0px;
+    position: relative;
+}
 
-        .logoName {
-            color: #c0b596;
-            font-size: 13px;
-            font-weight: 500;
-            text-align: center;
-            opacity: 0.9;
-        }
+.accreditation-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+    justify-content: center;
+
+    @media (max-width: 992px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: repeat(1, 1fr);
     }
 }
 
-/* StackedLogos Component */
-.stacked-logos {
-    --duration: 30;
-    --items: 4;
-    --lists: 4;
-    --stagger: 0;
-    --logo-width: 200px;
-    --mouse-x: 0px;
-    --mouse-y: 0px;
-}
-
-.stacked-logos:hover .stacked-logos__glow {
-    opacity: 1;
-}
-
-.stacked-logos:hover .stacked-logos__border-glow {
-    opacity: 1;
-}
-
-.stacked-logos-grid {
-    display: grid;
-    position: relative;
-    justify-content: center;
-}
-
-.stacked-logos__glow {
+.accreditation-grid__glow {
     pointer-events: none;
     position: absolute;
     inset: 0;
     opacity: 0;
     transition: opacity 0.3s;
-    z-index: 10;
+    z-index: 2;
+    // glow spans all columns so it doesn't break the grid
+    grid-column: 1 / -1;
 }
 
-.stacked-logos__border-glow {
-    pointer-events: none;
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 20;
+.accreditation-grid-wrapper:hover .accreditation-grid__glow {
+    opacity: 1;
 }
 
-.stacked-logos__edge-glow {
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 1px;
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 20;
-}
-
-.stacked-logos__cell {
-    position: relative;
-    display: grid;
-    --base-delay: calc(sin((var(--index) / var(--lists)) * 45deg) * var(--stagger));
-}
-
-.stacked-logos__border-right {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 1px;
-    background: rgba(192, 181, 150, 0.3);
-}
-
-.stacked-logos__border-bottom {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 1px;
-    background: rgba(192, 181, 150, 0.3);
-}
-
-.stacked-logos__border-top {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 1px;
-    background: rgba(192, 181, 150, 0.3);
-}
-
-.stacked-logos__border-left {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 1px;
-    background: rgba(192, 181, 150, 0.3);
-}
-
-.stacked-logos__item {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    display: grid;
-    place-items: center;
-    padding: 40px 20px;
-}
-
-.stacked-logos__logo {
-    width: 100%;
-    height: 32px;
+.accreditation-grid__cell {
     display: flex;
     align-items: center;
     justify-content: center;
-    animation-name: stacked-logos-appear;
-    animation-duration: calc(var(--duration) * 1s);
-    animation-fill-mode: both;
-    animation-iteration-count: infinite;
-    animation-delay: calc(
-        (var(--duration) / var(--items)) * (var(--items) - var(--i)) * -1s +
-        (var(--base-delay, 0) * 1s)
-    );
+    padding: 35px 20px;
+    // Use outline so every cell gets its own border and they collapse naturally
+    border: 1px solid rgba(192, 181, 150, 0.2);
+    margin-top: -1px;
+    margin-left: -1px;
+    transition: background 0.3s ease;
 
-    svg {
-        height: 100%;
-        width: auto;
-        fill: #c0b596;
+    &:hover {
+        background: rgba(192, 181, 150, 0.08);
     }
 }
 
-.accreditation-logo {
-    color: #c0b596;
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+.accreditation-grid__logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
 
-@keyframes stacked-logos-appear {
-    0%, 100% { opacity: 0; filter: blur(4px); }
-    5%, 20% { opacity: 1; filter: blur(0); }
-    25%, 100% { opacity: 0; filter: blur(4px); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .stacked-logos__logo {
-        animation: none;
-        opacity: 1;
-        filter: none;
+    img {
+        max-width: 100%;
+        max-height: 60px;
+        object-fit: contain;
+        transition: all 0.3s ease;
     }
-    .stacked-logos__item:not(:first-child) {
-        display: none;
+
+    .logoName {
+        color: #c0b596;
+        font-size: 13px;
+        font-weight: 500;
+        text-align: center;
+        opacity: 0.9;
+    }
+}
+
+.accreditationArea .loadMoreWrapper {
+    text-align: center;
+    margin-top: 50px;
+
+    .btnStyle {
+        background: transparent;
+        border: 1px solid #c0b596;
+        color: #c0b596;
+        padding: 12px 35px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: #c0b596;
+            color: #151a30;
+        }
     }
 }
 
@@ -3563,6 +3599,28 @@ text-align: center;
 .visionMissionArea {
     padding: 100px 0;
     background: #fff;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -30%;
+        transform: translateY(-50%);
+        width: 60%;
+        height: 90%;
+        background: url('/images/logo/arbex.png') no-repeat center center;
+        background-size: contain;
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    > .container {
+        position: relative;
+        z-index: 1;
+    }
 
     .visionMissionWrapper {
         display: flex;
@@ -3870,6 +3928,28 @@ text-align: center;
 .specialitiesAreaWhite {
     padding: 100px 0;
     background: #fff;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -30%;
+        transform: translateY(-50%);
+        width: 60%;
+        height: 90%;
+        background: url('/images/logo/arbex.png') no-repeat center center;
+        background-size: contain;
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    > .container {
+        position: relative;
+        z-index: 1;
+    }
 
     .serviceWrapWhite {
         background: #f9f9f9;
@@ -3961,6 +4041,16 @@ text-align: center;
             display: block;
             color: #666;
             margin-bottom: 5px;
+
+            a {
+                color: inherit;
+                text-decoration: none;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: #c0b596;
+                }
+            }
         }
     }
 
@@ -3980,13 +4070,13 @@ text-align: center;
         .formInput {
             margin-bottom: 15px;
 
-            input, textarea {
+            input, textarea, select {
                 width: 100%;
                 background: #fff;
                 border: 1px solid rgba(192, 181, 150, 0.5);
-                padding: 15px;
+                padding: 13px 15px;
                 color: #282e3f;
-                font-size: 15px;
+                font-size: 13px;
                 border-radius: 4px;
                 transition: all 0.3s ease;
 
@@ -3999,6 +4089,19 @@ text-align: center;
 
                 &::placeholder {
                     color: #999;
+                }
+            }
+
+            select {
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                background: #fff url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 15px center;
+                cursor: pointer;
+
+                option {
+                    color: #282e3f;
+                    padding: 10px;
                 }
             }
 
@@ -4052,121 +4155,224 @@ text-align: center;
     }
 }
 
-/* Clients Section - Same structure as Accreditation but static */
+/* Clients Section - Same layout as Accreditation */
 .clientsSection {
     padding: 100px 0;
     background: #151a30;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -30%;
+        transform: translateY(-50%);
+        width: 60%;
+        height: 90%;
+        background: url('/images/logo/arbex.png') no-repeat center center;
+        background-size: contain;
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    > .container {
+        position: relative;
+        z-index: 1;
+    }
 
     .sectionTitle {
         h2, span {
             color: #fff;
         }
     }
+}
 
-    .clientsLogosGrid {
-        display: grid;
-        grid-template-columns: repeat(4, 200px);
-        gap: 0;
-        justify-content: center;
-        margin-top: 40px;
-        border: 1px solid rgba(192, 181, 150, 0.3);
+.clients-grid-wrapper {
+    --mouse-x: 0px;
+    --mouse-y: 0px;
+    position: relative;
+}
 
-        @media (max-width: 992px) {
-            grid-template-columns: repeat(3, 180px);
-        }
+.clients-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+    justify-content: center;
 
-        @media (max-width: 768px) {
-            grid-template-columns: repeat(2, 150px);
-        }
-
-        @media (max-width: 576px) {
-            grid-template-columns: repeat(2, 120px);
-        }
+    @media (max-width: 992px) {
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    .clientLogoItem {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        border-right: 1px solid rgba(192, 181, 150, 0.3);
-        border-bottom: 1px solid rgba(192, 181, 150, 0.3);
-
-        &:nth-child(4n) {
-            border-right: none;
-        }
-
-        @media (max-width: 992px) {
-            &:nth-child(4n) {
-                border-right: 1px solid rgba(192, 181, 150, 0.3);
-            }
-            &:nth-child(3n) {
-                border-right: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            &:nth-child(3n) {
-                border-right: 1px solid rgba(192, 181, 150, 0.3);
-            }
-            &:nth-child(2n) {
-                border-right: none;
-            }
-        }
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .clientLogoCell {
-        padding: 40px 20px;
-        width: 100%;
-        display: grid;
-        place-items: center;
+    @media (max-width: 480px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.clients-grid__glow {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 2;
+    grid-column: 1 / -1;
+}
+
+.clients-grid-wrapper:hover .clients-grid__glow {
+    opacity: 1;
+}
+
+.clients-grid__cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 35px 20px;
+    border: 1px solid rgba(192, 181, 150, 0.2);
+    margin-top: -1px;
+    margin-left: -1px;
+    transition: background 0.3s ease;
+
+    &:hover {
+        background: rgba(192, 181, 150, 0.08);
+    }
+}
+
+.clients-grid__logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    img {
+        max-width: 100%;
+        max-height: 60px;
+        object-fit: contain;
+        transition: all 0.3s ease;
+    }
+
+    .logoName {
+        color: #c0b596;
+        font-size: 13px;
+        font-weight: 500;
+        text-align: center;
+        opacity: 0.9;
+    }
+}
+
+.clientsSection .loadMoreWrapper {
+    text-align: center;
+    margin-top: 50px;
+
+    .btnStyle {
+        background: transparent;
+        border: 1px solid #c0b596;
+        color: #c0b596;
+        padding: 12px 35px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
         transition: all 0.3s ease;
 
         &:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: #c0b596;
+            color: #151a30;
         }
     }
+}
 
-    .client-logo {
+/* =========================================
+   Spanning Logo Header Layout
+   Logo on the left spanning both top and bottom headers
+   ========================================= */
+.headerArea.headerAreaSpanning {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    .headerSpanningLogo {
+        background: #272c3f;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        gap: 12px;
+        justify-content: center;
+        padding: 10px 25px 10px 30px;
+        flex-shrink: 0;
+        z-index: 10;
 
         img {
-            max-width: 100%;
-            max-height: 60px;
+            height: 110px;
+            width: auto;
             object-fit: contain;
-            transition: all 0.3s ease;
-        }
-
-        .logoName {
-            color: #c0b596;
-            font-size: 13px;
-            font-weight: 500;
-            text-align: center;
-            opacity: 0.9;
         }
     }
 
-    .loadMoreWrapper {
-        text-align: center;
-        margin-top: 50px;
+    .headerContentRight {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
 
-        .btnStyle {
-            background: transparent;
-            border: 1px solid #c0b596;
-            color: #c0b596;
-            padding: 12px 35px;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
+        // Make containers fill the right content area fully
+        // padding-left: 0 so content aligns exactly with the divider edge
+        .container {
+            max-width: 100%;
+            width: 100%;
+            padding-left: 0;
+            padding-right: 30px;
+        }
 
-            &:hover {
-                background: #c0b596;
-                color: #151a30;
+        // Top header content flush left
+        .headerTop .headerTopMainWrapper {
+            padding-left: 0;
+        }
+    }
+
+    // Left-align nav items so they start from the divider edge
+    .headerBottomArea .mainMenuWrap {
+        text-align: left;
+    }
+
+    // Desktop: hide the internal logo in bottom header when not sticky
+    @media (min-width: 992px) {
+        .headerBottomArea:not(.stickyHeader) {
+            .logoGridItem {
+                display: none !important;
             }
+
+            // Expand nav to fill the space left by hidden logo
+            .responsiveWrapper {
+                flex-basis: 91.666667% !important;
+                max-width: 91.666667% !important;
+            }
+        }
+    }
+
+    // Mobile: hide spanning logo, fall back to normal header layout
+    @media (max-width: 991px) {
+        flex-direction: column;
+
+        .headerSpanningLogo {
+            display: none;
+        }
+
+        .headerContentRight {
+            .container {
+                max-width: 100%;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+
+        // Restore right-align for nav on mobile (dropdown)
+        .headerBottomArea .mainMenuWrap {
+            text-align: left;
         }
     }
 }

@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { Grid, Button } from '@mui/material'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
+import { Grid } from '@mui/material'
 import SectionTitle from '../Title'
 import { supabase } from '../../lib/supabase'
 
+const CLIENTS_PER_PAGE = 8
+
 const Clients = ({ className = '' }) => {
     const [allClients, setAllClients] = useState([])
-    const [displayedClients, setDisplayedClients] = useState([])
+    const [visibleCount, setVisibleCount] = useState(CLIENTS_PER_PAGE)
     const [loading, setLoading] = useState(true)
-    const [showLoadMore, setShowLoadMore] = useState(false)
-    const clientsPerPage = 8
+    const gridRef = useRef(null)
+    const containerRef = useRef(null)
 
     useEffect(() => {
         fetchClients()
@@ -25,8 +27,6 @@ const Clients = ({ className = '' }) => {
 
             if (data && data.length > 0) {
                 setAllClients(data)
-                setDisplayedClients(data.slice(0, clientsPerPage))
-                setShowLoadMore(data.length > clientsPerPage)
             }
         } catch (error) {
             console.error('Error fetching clients:', error)
@@ -36,15 +36,24 @@ const Clients = ({ className = '' }) => {
     }
 
     const handleLoadMore = () => {
-        const currentLength = displayedClients.length
-        const nextClients = allClients.slice(currentLength, currentLength + clientsPerPage)
-        setDisplayedClients([...displayedClients, ...nextClients])
-        setShowLoadMore(currentLength + clientsPerPage < allClients.length)
+        setVisibleCount(prev => prev + CLIENTS_PER_PAGE)
     }
 
+    const handleMouseMove = useCallback((e) => {
+        if (!containerRef.current || !gridRef.current) return
+        const rect = gridRef.current.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const y = e.clientY - rect.top
+        containerRef.current.style.setProperty('--mouse-x', `${x}px`)
+        containerRef.current.style.setProperty('--mouse-y', `${y}px`)
+    }, [])
+
     if (loading || allClients.length === 0) {
-        return null // Don't show section if no clients
+        return null
     }
+
+    const visibleClients = allClients.slice(0, visibleCount)
+    const hasMore = visibleCount < allClients.length
 
     return (
         <div id="clients" className={`clientsSection ${className}`}>
@@ -56,32 +65,40 @@ const Clients = ({ className = '' }) => {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <div className="clientsLogosGrid">
-                        {displayedClients.map((client) => (
-                            <div key={client.id} className="clientLogoItem">
-                                <div className="clientLogoCell">
-                                    <div className="client-logo">
-                                        <img 
-                                            src={client.logo_url} 
+                    <div
+                        ref={containerRef}
+                        className="clients-grid-wrapper"
+                        onMouseMove={handleMouseMove}
+                    >
+                        <div ref={gridRef} className="clients-grid">
+                            {/* Hover glow overlay */}
+                            <div
+                                className="clients-grid__glow"
+                                style={{
+                                    background: 'radial-gradient(500px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(192,181,150,0.15), transparent 70%)'
+                                }}
+                            />
+                            {visibleClients.map((client) => (
+                                <div key={client.id} className="clients-grid__cell">
+                                    <div className="clients-grid__logo-wrap">
+                                        <img
+                                            src={client.logo_url}
                                             alt={client.name}
                                         />
                                         <span className="logoName">{client.name}</span>
                                     </div>
                                 </div>
+                            ))}
+                        </div>
+                        {hasMore && (
+                            <div className="loadMoreWrapper">
+                                <button className="btnStyle" onClick={handleLoadMore}>
+                                    Load More
+                                </button>
                             </div>
-                        ))}
+                        )}
                     </div>
                 </Grid>
-                {showLoadMore && (
-                    <Grid item xs={12} className="loadMoreWrapper">
-                        <Button 
-                            className="btnStyle" 
-                            onClick={handleLoadMore}
-                        >
-                            Load More
-                        </Button>
-                    </Grid>
-                )}
             </Grid>
         </div>
     )

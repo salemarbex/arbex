@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 
 // components 
 import HeaderTop from '../components/HeaderTop'
@@ -22,9 +23,16 @@ const Home = () => {
                 <title>Arbex Law - Legal Consultancy</title>
                 <meta name="description" content="Arbex Law - Professional legal consultancy services in Qatar" />
             </Head>
-            <header className="headerArea">
-                <HeaderTop className="headerTop" />
-                <HeaderBottom className="headerBottomArea" />
+            <header className="headerArea headerAreaSpanning">
+                <div className="headerSpanningLogo">
+                    <Link href="/home">
+                        <img src="/images/logo/arbex.png" alt="Arbex Law" />
+                    </Link>
+                </div>
+                <div className="headerContentRight">
+                    <HeaderTop className="headerTop" />
+                    <HeaderBottom className="headerBottomArea" />
+                </div>
             </header>
             
             {/* Home Section with Video */}
