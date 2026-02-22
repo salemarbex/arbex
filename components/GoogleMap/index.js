@@ -2,7 +2,7 @@ import React from 'react'
 
 const GoogleMap = () => {
     return (
-        <div className="googleMapArea">
+        <div id="map" className="googleMapArea">
             <iframe
                 src="https://maps.google.com/maps?q=Zone%2032,%20Street%20958,%20Building%2052,%20Doha,%20Qatar&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"

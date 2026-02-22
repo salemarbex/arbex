@@ -1,0 +1,983 @@
+/* ==============================================
+   RTL (Right-to-Left) Styles for Arabic Version
+   ==============================================
+   
+   KEY PRINCIPLE: The <html dir="rtl"> and body.rtl { direction: rtl }
+   automatically cause all flex containers (including MUI Grid) to flow
+   items right-to-left. We do NOT use flex-direction: row-reverse or
+   order overrides — those would double-reverse the layout back to LTR.
+   
+   Only decorative elements (margins, ::before/::after positions) need
+   explicit RTL overrides since they use absolute left/right values.
+   ============================================== */
+
+/* ===== Arabic Font Families ===== */
+body.rtl {
+    font-family: 'Cairo', 'Open Sans', sans-serif;
+    direction: rtl;
+    text-align: right;
+}
+
+body.rtl h1,
+body.rtl h2,
+body.rtl h3,
+body.rtl h4,
+body.rtl h5,
+body.rtl h6 {
+    font-family: 'Tajawal', 'Playfair Display', serif;
+}
+
+/* ===== Language Switcher ===== */
+.languageSwitcher {
+    display: inline-flex;
+    align-items: center;
+}
+
+.langSwitchBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 2px solid #c0b596;
+    color: #c0b596;
+    padding: 6px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.langSwitchBtn:hover {
+    background: #c0b596;
+    color: #fff;
+}
+
+.langIcon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.langLabel {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+/* ===== General RTL Overrides ===== */
+body.rtl .text-right {
+    text-align: left !important;
+}
+
+body.rtl .text-left {
+    text-align: right !important;
+}
+
+body.rtl ul {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/* ===== Header RTL ===== */
+/* direction: rtl on body naturally flips flex item order (logo→right, nav→left). */
+/* Below we mirror all physical padding/margin values so spacing matches English. */
+body.rtl .headerArea {
+    direction: rtl;
+}
+
+/* --- Top Bar: account/address area --- */
+body.rtl .accountLoginArea {
+    direction: rtl;
+}
+
+/* Flip icon padding: English has padding-right:5px on svg */
+body.rtl .accountLoginArea li svg {
+    padding-right: 0;
+    padding-left: 5px;
+}
+
+/* --- Top Bar: phone/hours contact area --- */
+body.rtl .headerContact {
+    direction: rtl;
+    margin-right: 0;
+    margin-left: 20px;
+}
+
+/* Flip icon margin: English has margin-right:7px on svg */
+body.rtl .headerContact li svg {
+    margin-right: 0;
+    margin-left: 7px;
+}
+
+/* --- Top Bar: consult button area --- */
+body.rtl .headerTop .text-right {
+    text-align: left !important;
+    padding-left: 15px;
+}
+
+/* --- Logo area --- */
+body.rtl .logo {
+    text-align: right;
+}
+
+/* Flip logoDivider margin: English has margin-left:30px */
+body.rtl .logoDivider {
+    right: auto;
+    left: 0;
+    margin-left: 0;
+    margin-right: 30px;
+}
+
+/* Flip sticky header logo margin: English has margin-left:15px */
+body.rtl .headerBottomArea.stickyHeader .logo img {
+    margin-left: 0;
+    margin-right: 15px;
+}
+
+/* --- Spanning Logo Layout RTL --- */
+/* Flip spanning logo padding: English has padding: 10px 25px 10px 30px */
+body.rtl .headerAreaSpanning .headerSpanningLogo {
+    padding: 10px 30px 10px 25px;
+}
+
+/* Flip content container padding: English has padding-left:0; padding-right:30px */
+body.rtl .headerAreaSpanning .headerContentRight .container {
+    padding-left: 30px;
+    padding-right: 0;
+}
+
+/* Flip top bar inner padding: English has padding-left:0 in spanning layout */
+body.rtl .headerAreaSpanning .headerContentRight .headerTop .headerTopMainWrapper {
+    padding-left: unset;
+    padding-right: 0;
+}
+
+/* Mirror nav text-align: English spanning has text-align:left → RTL: right */
+body.rtl .headerAreaSpanning .headerBottomArea .mainMenuWrap {
+    text-align: right;
+}
+
+/* ===== Navigation RTL ===== */
+body.rtl .mainMenuWrap {
+    direction: rtl;
+    text-align: left;
+}
+
+body.rtl .mainMenuWrap li {
+    text-align: right;
+}
+
+/* Flip first/last child padding: English first-child has padding-left:0, last-child has padding-right:0 */
+body.rtl .mainMenuWrap li:first-child {
+    padding-left: 12px;
+    padding-right: 0;
+}
+
+body.rtl .mainMenuWrap li:last-child {
+    padding-right: 12px;
+    padding-left: 0;
+}
+
+body.rtl .mainMenuWrap > li > a {
+    text-align: right;
+}
+
+body.rtl .mainMenuWrap li ul.subMenu {
+    left: auto;
+    right: 0;
+    text-align: right;
+}
+
+body.rtl .responsiveTrigger {
+    float: left;
+}
+
+body.rtl .searchMenuWrapper {
+    text-align: left;
+    justify-content: flex-start;
+}
+
+/* --- Responsive mobile menu RTL --- */
+body.rtl .responsiveWrapper {
+    left: auto;
+    right: 0;
+}
+
+body.rtl .responsiveWrapper.active {
+    left: auto;
+    right: 0;
+}
+
+body.rtl .responsiveWrapper .mainMenuWrap {
+    text-align: right;
+}
+
+/* ===== Hero Section RTL ===== */
+body.rtl .heroVideoArea .heroContent {
+    text-align: right;
+    direction: rtl;
+}
+
+body.rtl .heroSliderArea .slideWrapper .container {
+    direction: rtl;
+}
+
+body.rtl .heroSliderArea .slideWrapper h2,
+body.rtl .heroSliderArea .slideWrapper p {
+    text-align: right;
+}
+
+/* ===== About Section RTL ===== */
+/* direction: rtl naturally flips Grid items: Image→right, Text→left (mirror of English) */
+body.rtl .aboutContent {
+    text-align: right;
+}
+
+body.rtl .aboutContent .subtitle {
+    text-align: right;
+}
+
+body.rtl .aboutContent h2 {
+    text-align: right;
+}
+
+body.rtl .aboutContent p {
+    text-align: right;
+}
+
+/* Flip decorative margins on about image */
+body.rtl .aboutArea .aboutImageWrap {
+    margin: -25px -15px 0 auto;
+}
+
+/* Flip about area background watermark */
+body.rtl .aboutArea::after {
+    right: auto;
+    left: -30%;
+}
+
+/* aboutAreaStyleTwo decorative ::before flip */
+body.rtl .aboutAreaStyleTwo .aboutImageWrap::before {
+    right: auto;
+    left: -10px;
+}
+
+/* aboutAreaStyleTwo image margin flip: English 0px 10px 10px 0px */
+body.rtl .aboutAreaStyleTwo .aboutImageWrap {
+    margin: 0px 0px 10px 10px;
+}
+
+/* aboutAreaStyleTwo h2 decorative line: English left: -68px */
+body.rtl .aboutAreaStyleTwo .aboutContent h2::before {
+    left: auto;
+    right: -68px;
+}
+
+/* ===== Consultant Section RTL ===== */
+/* direction: rtl naturally flips Grid items: Text→right, Image→left (mirror of English) */
+body.rtl .consultantArea .aboutContent {
+    text-align: right;
+}
+
+/* Flip consultant image margin */
+body.rtl .consultantArea .consultantImageWrap {
+    margin: 0 20px 0 0;
+}
+
+/* Flip consultant image decorative ::before border */
+body.rtl .consultantArea .consultantImageWrap::before {
+    right: auto;
+    left: -20px;
+}
+
+/* Flip consultant area background watermark */
+body.rtl .consultantArea::after {
+    left: auto;
+    right: -30%;
+}
+
+/* ===== Service / Specialities RTL ===== */
+body.rtl .specialitiesAreaWhite .container {
+    direction: rtl;
+}
+
+body.rtl .serviceWrapWhite {
+    text-align: right;
+    direction: rtl;
+}
+
+body.rtl .serviceWrapWhite .serviceIcon {
+    float: right;
+    margin-left: 15px;
+    margin-right: 0;
+}
+
+body.rtl .serviceWrapWhite .serviceContent {
+    text-align: right;
+}
+
+body.rtl .serviceWrapWhite .serviceContent h3,
+body.rtl .serviceWrapWhite .serviceContent p {
+    text-align: right;
+}
+
+/* ===== Section Title RTL ===== */
+body.rtl .sectionTitle {
+    text-align: center;
+}
+
+/* ===== Accreditation RTL ===== */
+body.rtl .accreditationArea {
+    direction: rtl;
+}
+
+body.rtl .accreditation-grid {
+    direction: rtl;
+}
+
+/* ===== Vision & Mission RTL ===== */
+/* direction: rtl naturally flips flex items: Vision→right, Divider→center, Mission→left */
+body.rtl .visionMissionArea {
+    direction: rtl;
+}
+
+body.rtl .visionContent,
+body.rtl .missionContent {
+    text-align: right;
+}
+
+body.rtl .visionContent .subtitle,
+body.rtl .missionContent .subtitle {
+    text-align: right;
+}
+
+/* Flip the decorative h2::before line from left to right */
+body.rtl .visionSection h2::before,
+body.rtl .missionSection h2::before {
+    left: auto;
+    right: -68px;
+}
+
+/* ===== Awareness / Portfolio RTL ===== */
+body.rtl .portfolioArea .container {
+    direction: rtl;
+}
+
+body.rtl .portfolioContent {
+    text-align: right;
+}
+
+body.rtl .portfolioContent h3,
+body.rtl .portfolioContent p {
+    text-align: right;
+}
+
+/* ===== Awareness Modal RTL ===== */
+body.rtl .awarenessModal {
+    direction: rtl;
+}
+
+body.rtl .awarenessModal .closeModalBtn {
+    right: auto;
+    left: 16px;
+}
+
+body.rtl .modalTextContent {
+    text-align: right;
+}
+
+/* ===== Clients RTL ===== */
+body.rtl .clientsSection {
+    direction: rtl;
+}
+
+/* ===== Contact Section RTL ===== */
+/* direction: rtl naturally flips Grid items: Info→right, Form→left (mirror of English) */
+body.rtl .contactSectionArea {
+    direction: rtl;
+}
+
+body.rtl .contactUsInfo {
+    text-align: right;
+}
+
+body.rtl .contactUsInfo h3,
+body.rtl .contactUsInfo h4,
+body.rtl .contactUsInfo p,
+body.rtl .contactUsInfo span {
+    text-align: right;
+}
+
+body.rtl .contactUSForm {
+    text-align: right;
+}
+
+body.rtl .contactUSForm h3 {
+    text-align: right;
+}
+
+body.rtl .contactForm input,
+body.rtl .contactForm textarea,
+body.rtl .contactForm select {
+    text-align: right;
+    direction: rtl;
+}
+
+body.rtl .contactForm .formInput select {
+    background-position: 15px center;
+}
+
+body.rtl .contactForm input::placeholder,
+body.rtl .contactForm textarea::placeholder {
+    text-align: right;
+}
+
+/* ===== Google Map RTL ===== */
+body.rtl .googleMapArea {
+    direction: ltr;
+}
+
+/* ===== Footer RTL ===== */
+body.rtl .footerArea {
+    direction: rtl;
+    text-align: right;
+}
+
+body.rtl .footerLogo {
+    text-align: right;
+}
+
+body.rtl .footerLogo p {
+    text-align: right;
+}
+
+body.rtl .footerWrap {
+    text-align: right;
+}
+
+body.rtl .footerWrap h3 {
+    text-align: right;
+}
+
+body.rtl .footerWrap ul li {
+    text-align: right;
+}
+
+body.rtl .footerContact {
+    text-align: right;
+}
+
+body.rtl .copyrightText {
+    text-align: right;
+}
+
+body.rtl .socialListFooter {
+    justify-content: flex-start;
+}
+
+/* ===== Breadcrumb RTL ===== */
+body.rtl .breadcumbArea {
+    direction: rtl;
+}
+
+body.rtl .breadcumbWrap {
+    text-align: right;
+}
+
+body.rtl .breadcumbWrap h2 {
+    text-align: right;
+}
+
+body.rtl .breadcumbWrap ul {
+    direction: rtl;
+    justify-content: flex-start;
+}
+
+body.rtl .breadcumbWrap ul li + li::before {
+    content: '\\';
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* ===== Counter RTL ===== */
+body.rtl .counterArea {
+    direction: rtl;
+}
+
+/* ===== Team Member RTL ===== */
+body.rtl .teamArea {
+    direction: rtl;
+}
+
+body.rtl .teamContent {
+    text-align: right;
+}
+
+/* ===== Blog RTL ===== */
+body.rtl .blogArea {
+    direction: rtl;
+}
+
+body.rtl .blogContent {
+    text-align: right;
+}
+
+/* ===== Testimonial RTL ===== */
+body.rtl .testimonialArea {
+    direction: rtl;
+}
+
+body.rtl .testimonialContent {
+    text-align: right;
+}
+
+/* ===== Sticky Header RTL ===== */
+body.rtl .stickyHeader {
+    direction: rtl;
+}
+
+/* ===== Responsive RTL ===== */
+@media (max-width: 992px) {
+    body.rtl .responsiveWrapper {
+        text-align: right;
+        left: auto;
+        right: 0;
+    }
+    
+    body.rtl .responsiveWrapper.active {
+        left: auto;
+        right: 0;
+    }
+    
+    body.rtl .mainMenuWrap {
+        text-align: right;
+    }
+    
+    body.rtl .mainMenuWrap li a {
+        text-align: right;
+    }
+
+    /* Flip responsive menu icon i position */
+    body.rtl .mainMenuWrap li a i {
+        right: auto;
+        left: 0;
+    }
+
+    .mobileLangSwitcher {
+        display: block !important;
+        padding: 15px 20px;
+        text-align: center;
+    }
+
+    body.rtl .mobileLangSwitcher {
+        text-align: center;
+    }
+
+    /* Reset spanning layout padding on tablet */
+    body.rtl .headerAreaSpanning .headerContentRight .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    body.rtl .headerAreaSpanning {
+        flex-direction: column-reverse;
+    }
+    
+    body.rtl .footerTopArea .container {
+        flex-direction: column;
+    }
+    
+    body.rtl .contactSectionArea .container {
+        flex-direction: column;
+    }
+
+    /* On mobile, reset image margins to centered */
+    body.rtl .aboutArea .aboutImageWrap {
+        margin: 0 auto 40px;
+    }
+}
+
+/* ===== Slick Slider RTL ===== */
+body.rtl .slick-slider {
+    direction: rtl;
+}
+
+body.rtl .slick-track {
+    direction: rtl;
+}
+
+body.rtl .slick-slide {
+    float: right;
+}
+
+body.rtl .slick-prev {
+    right: 25px;
+    left: auto;
+}
+
+body.rtl .slick-next {
+    left: 25px;
+    right: auto;
+}
+
+/* ===== Form Elements RTL ===== */
+body.rtl .form-control {
+    text-align: right;
+}
+
+body.rtl select.form-control {
+    background-position: left 12px center;
+    padding-left: 30px;
+    padding-right: 12px;
+}
+
+body.rtl .errorText {
+    text-align: right;
+}
+
+/* ===== Toast RTL ===== */
+body.rtl .Toastify__toast {
+    direction: rtl;
+    text-align: right;
+}
+
+/* ===== Pricing Table RTL ===== */
+body.rtl .pricingArea {
+    direction: rtl;
+}
+
+body.rtl .pricingContent {
+    text-align: right;
+}
+
+/* ===== Service Area RTL ===== */
+body.rtl .ourServiceArea {
+    direction: rtl;
+}
+
+body.rtl .serviceItem {
+    text-align: right;
+}
+
+/* ===== Newsletter RTL ===== */
+body.rtl .newsletterArea {
+    direction: rtl;
+}
+
+body.rtl .newsletterContent {
+    text-align: right;
+}
+
+/* ===== Contact Area (Parallax) RTL ===== */
+body.rtl .contactArea {
+    direction: rtl;
+}
+
+body.rtl .contactInfo {
+    text-align: right;
+}
+
+/* ===== Search Sidebar RTL ===== */
+body.rtl .sidebarSearchArea {
+    direction: rtl;
+}
+
+/* ===== Category Sidebar RTL ===== */
+body.rtl .sidebarCategoryArea {
+    direction: rtl;
+    text-align: right;
+}
+
+/* ===== Header Language Button in Top Bar ===== */
+.headerContact .languageSwitcher {
+    margin-left: 0;
+}
+
+body.rtl .headerContact .languageSwitcher {
+    margin-right: 0;
+}
+
+/* ===== Header Search Form RTL ===== */
+body.rtl .searchWrap .searchform {
+    right: auto;
+    left: 0;
+}
+
+@media (max-width: 380px) {
+    body.rtl .searchWrap .searchform {
+        right: auto;
+        left: -25px;
+    }
+}
+
+body.rtl .searchform form input {
+    padding: 0 10px 0 40px;
+}
+
+body.rtl .searchform form button {
+    right: auto;
+    left: 0;
+}
+
+/* Responsive trigger margin: English margin-left:30px */
+body.rtl .responsiveTrigger {
+    margin-left: 0;
+    margin-right: 30px;
+}
+
+/* ===== Specialities Watermark RTL ===== */
+body.rtl .specialitiesArea::after {
+    right: auto;
+    left: -30%;
+}
+
+body.rtl .specialitiesAreaWhite::after {
+    right: auto;
+    left: -30%;
+}
+
+/* ===== Accreditation Watermark RTL ===== */
+body.rtl .accreditationArea::after {
+    left: auto;
+    right: -30%;
+}
+
+/* ===== Vision/Mission Watermark RTL ===== */
+body.rtl .visionMissionArea::after {
+    right: auto;
+    left: -30%;
+}
+
+/* ===== Awareness Modal Padding RTL ===== */
+body.rtl .awarenessModal .modalTextContent {
+    padding-left: 10px;
+    padding-right: 20px;
+}
+
+/* ===== Clients Watermark RTL ===== */
+body.rtl .clientsSection::after {
+    left: auto;
+    right: -30%;
+}
+
+/* ===== Contact (Parallax) h2 decorative line RTL ===== */
+body.rtl .contactArea .contactInfo h2::before {
+    left: auto;
+    right: -68px;
+}
+
+@media (max-width: 1200px) {
+    body.rtl .contactArea .contactInfo h2::before {
+        left: auto;
+        right: -35px;
+    }
+}
+
+/* ===== Contact Page Info Padding RTL ===== */
+body.rtl .contactSectionArea .contactUsInfo {
+    padding-right: 0;
+    padding-left: 30px;
+}
+
+/* ===== Footer Spacing RTL ===== */
+body.rtl .copyrightText .wafraLink {
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+body.rtl .socialListFooter li {
+    margin-left: 0;
+    margin-right: 15px;
+}
+
+body.rtl .socialListFooter li:first-child {
+    margin-right: 0;
+}
+
+/* ===== Team Slider Arrows RTL ===== */
+body.rtl .teamSlideArea .slick-arrow.slick-prev {
+    left: auto;
+    right: -70px;
+}
+
+body.rtl .teamSlideArea .slick-arrow.slick-next {
+    right: auto;
+    left: -70px;
+}
+
+@media (max-width: 1200px) {
+    body.rtl .teamSlideArea .slick-arrow.slick-prev {
+        left: auto;
+        right: -10px;
+    }
+
+    body.rtl .teamSlideArea .slick-arrow.slick-next {
+        right: auto;
+        left: -10px;
+    }
+}
+
+/* ===== Single Team Page RTL ===== */
+body.rtl .singleTeamContent .teamMembarInfo li span {
+    margin-right: 0;
+    margin-left: 3px;
+}
+
+body.rtl .singleTeamContent .socialShare li {
+    margin-right: 0;
+    margin-left: 5px;
+}
+
+body.rtl .singleTeamInfo ul li svg {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+/* ===== Blog Meta RTL ===== */
+body.rtl .blogMeta li:last-child::before {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+@media (max-width: 576px) {
+    body.rtl .blogMeta li:last-child::before {
+        margin-right: 0;
+        margin-left: 5px;
+    }
+}
+
+body.rtl .blogPostMeta li img {
+    margin-right: 0;
+    margin-left: 20px;
+}
+
+@media (max-width: 375px) {
+    body.rtl .blogPostMeta li img {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+}
+
+/* ===== Testimonial RTL Spacing ===== */
+body.rtl .testimonialContent h2::before {
+    left: auto;
+    right: -68px;
+}
+
+body.rtl .testmonialSlider .slideItem p {
+    padding-right: 0;
+    padding-left: 50px;
+}
+
+body.rtl .testmonialSlider .slideItem p svg {
+    left: auto;
+    right: 0;
+}
+
+body.rtl .thumbWrap .thumbImg {
+    margin-right: 0;
+    margin-left: 20px;
+}
+
+/* ===== Service Area RTL Spacing ===== */
+body.rtl .serviceAreaStyleTwo .serviceIcon {
+    border-right: none;
+    border-left: 1px solid rgba(192, 181, 150, 0.4);
+}
+
+body.rtl .ourServiceArea .serviceWrap .serviceIcon {
+    float: right;
+}
+
+body.rtl .ourServiceArea .serviceContent {
+    padding-left: 0;
+    padding-right: 20px;
+}
+
+body.rtl .ourServiceArea .serviceContent h3::before {
+    left: auto;
+    right: 0;
+}
+
+body.rtl .ourServiceAreaStyleTwo .serviceIcon {
+    padding-right: 0;
+    padding-left: 15px;
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+body.rtl .ourServiceAreaStyleTwo .serviceIcon::before {
+    right: auto;
+    left: 0;
+}
+
+/* ===== Category Sidebar h3 RTL ===== */
+body.rtl .cetagoryWrap h3::before {
+    left: auto;
+    right: 30px;
+}
+
+/* ===== Search Sidebar Input RTL ===== */
+body.rtl .searchSidebarWrapper input {
+    padding: 6px 10px 6px 70px;
+}
+
+body.rtl .searchSidebarWrapper button {
+    right: auto;
+    left: 0;
+}
+
+/* ===== Newsletter Form RTL ===== */
+body.rtl .newsletterForm input {
+    padding: 6px 15px 6px 130px;
+}
+
+body.rtl .newsletterForm button {
+    right: auto;
+    left: 0;
+}
+
+/* ===== Portfolio Style Four RTL ===== */
+body.rtl .portfolioAreaStyleFour .sectionTitle {
+    text-align: right;
+}
+
+body.rtl .portfolioAreaStyleFour .sectionTitle h2::before {
+    left: auto;
+    right: 0;
+}
+
+/* ===== Recent Posts Sidebar RTL ===== */
+body.rtl .recentPostWrapper .postItem .postImg {
+    float: right;
+    margin-right: 0;
+    margin-left: 20px;
+}
+
+/* ===== Single Content Area RTL ===== */
+body.rtl .singleContentArea .avatarWra ul li svg {
+    margin-right: 0;
+    margin-left: 5px;
+}
+
+/* ===== Tags RTL ===== */
+body.rtl .tagsWrap ul li {
+    margin-right: 0;
+    margin-left: 7px;
+}
+
+/* ===== Button alignment RTL ===== */
+body.rtl .btnStyle {
+    text-align: center;
+}
+
+body.rtl .loadMoreWrapper {
+    text-align: center;
+}
+
+/* Ensure images don't flip */
+body.rtl img {
+    transform: none;
+}

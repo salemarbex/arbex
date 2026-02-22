@@ -3,12 +3,16 @@ import { InputAdornment, Grid, TextField, Button } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from "next/router";
 import SearchIcon from '@mui/icons-material/Search';
+import { useLanguage } from '../../lib/LanguageContext';
 
 const HeaderBottom = props => {
     const [search, setSearch] = useState()
     const [responsive, setResponsive] = useState(false)
     const [trigger, setTrigger] = useState(false)
     const [isScrolled, setIsScrolled] = useState(false)
+    const { t, locale, switchLanguage } = useLanguage();
+    
+    const homePath = locale === 'ar' ? '/ar/home' : '/home';
     
     const clickHandler = () => {
         setTrigger(!trigger)
@@ -40,6 +44,18 @@ const HeaderBottom = props => {
         setResponsive(false);
     };
 
+    const menuItems = [
+        { id: 'home', label: t('nav.home') },
+        { id: 'about', label: t('nav.about') },
+        { id: 'consultant', label: t('nav.consultant') },
+        { id: 'specialities', label: t('nav.specialities') },
+        { id: 'accreditation', label: t('nav.accreditation') },
+        { id: 'clients', label: t('nav.clients') },
+        { id: 'vision', label: t('nav.vision') },
+        { id: 'awareness', label: t('nav.awareness') },
+        { id: 'contact', label: t('nav.contact') },
+    ];
+
     return (
         <Fragment>
             {trigger && <Grid className="backdrop" onClick={clickHandler} ></Grid>}
@@ -50,7 +66,7 @@ const HeaderBottom = props => {
                     className="container">
                     <Grid item xs={8} sm={6} md={3} className="logoGridItem">
                         <Grid className="logo">
-                            <Link href="/home">
+                            <Link href={homePath}>
                                 <img src="/images/logo/arbex.png" alt="Arbex Law" />
                             </Link>
                             <span className="logoDivider"></span>
@@ -61,15 +77,25 @@ const HeaderBottom = props => {
                             "responsiveWrapper active" :
                             "responsiveWrapper"}>
                         <ul className="mainMenuWrap">
-                            <li><a href="/home/#home" onClick={(e) => scrollToSection(e, 'home')}>Home</a></li>
-                            <li><a href="/home/#about" onClick={(e) => scrollToSection(e, 'about')}>About</a></li>
-                            <li><a href="/home/#consultant" onClick={(e) => scrollToSection(e, 'consultant')}>Consultant</a></li>
-                            <li><a href="/home/#specialities" onClick={(e) => scrollToSection(e, 'specialities')}>Specialities</a></li>
-                            <li><a href="/home/#accreditation" onClick={(e) => scrollToSection(e, 'accreditation')}>Accreditation</a></li>
-                            <li><a href="/home/#clients" onClick={(e) => scrollToSection(e, 'clients')}>Clients</a></li>
-                            <li><a href="/home/#vision" onClick={(e) => scrollToSection(e, 'vision')}>Vision</a></li>
-                            <li><a href="/home/#awareness" onClick={(e) => scrollToSection(e, 'awareness')}>Awareness</a></li>
-                            <li><a href="/home/#contact" onClick={(e) => scrollToSection(e, 'contact')}>Contact Us</a></li>
+                            {menuItems.map((item) => (
+                                <li key={item.id}>
+                                    <a href={`${homePath}#${item.id}`} onClick={(e) => scrollToSection(e, item.id)}>
+                                        {item.label}
+                                    </a>
+                                </li>
+                            ))}
+                            <li className="langNavItem">
+                                <a
+                                    href={locale === 'en' ? '/ar/home' : '/home'}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        switchLanguage(locale === 'en' ? 'ar' : 'en');
+                                        setResponsive(false);
+                                    }}
+                                >
+                                    {locale === 'en' ? 'العربية' : 'English'}
+                                </a>
+                            </li>
                         </ul>
                     </Grid>
                     <Grid item xs={4} sm={6} md={1}>

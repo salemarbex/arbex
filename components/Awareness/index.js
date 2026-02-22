@@ -3,8 +3,10 @@ import { Grid, Button, Modal, Box, IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import SectionTitle from '../Title'
 import { supabase } from '../../lib/supabase'
+import { useLanguage } from '../../lib/LanguageContext'
 
 const Awareness = ({ className = '' }) => {
+    const { t, isRTL } = useLanguage();
     const [awarenessItems, setAwarenessItems] = useState([])
     const [displayedItems, setDisplayedItems] = useState([])
     const [selectedItem, setSelectedItem] = useState(null)
@@ -106,8 +108,8 @@ const Awareness = ({ className = '' }) => {
             <Grid container className="container">
                 <Grid item xs={12}>
                     <SectionTitle
-                        title="Our Recent Case Studies"
-                        subTitle="Awareness"
+                        title={t('awareness.title')}
+                        subTitle={t('awareness.subtitle')}
                     />
                 </Grid>
             </Grid>
@@ -122,8 +124,8 @@ const Awareness = ({ className = '' }) => {
                         >
                             <img src={item.image_url} alt={item.title} />
                             <Grid className="portfolioContent">
-                                <p>{item.subtitle}</p>
-                                <h3>{item.title}</h3>
+                                <p>{(isRTL && item.subtitle_ar) || item.subtitle}</p>
+                                <h3>{(isRTL && item.title_ar) || item.title}</h3>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -136,7 +138,7 @@ const Awareness = ({ className = '' }) => {
                         className="btnStyle" 
                         onClick={handleLoadMore}
                     >
-                        Load More
+                        {t('awareness.loadMore')}
                     </Button>
                 </Grid>
             )}
@@ -168,9 +170,9 @@ const Awareness = ({ className = '' }) => {
                             </Grid>
                             <Grid item md={6} xs={12}>
                                 <div className="modalTextContent">
-                                    <span className="modalSubtitle">{selectedItem.subtitle}</span>
-                                    <h2 className="modalTitle">{selectedItem.title}</h2>
-                                    <p className="modalDetails">{selectedItem.details}</p>
+                                    <span className="modalSubtitle">{(isRTL && selectedItem.subtitle_ar) || selectedItem.subtitle}</span>
+                                    <h2 className="modalTitle">{(isRTL && selectedItem.title_ar) || selectedItem.title}</h2>
+                                    <p className="modalDetails">{(isRTL && selectedItem.details_ar) || selectedItem.details}</p>
                                 </div>
                             </Grid>
                         </Grid>

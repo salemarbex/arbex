@@ -1519,6 +1519,7 @@ body .ptb100 {
 
 .portfolioArea {
   padding: 100px 0px;
+  background-color: #F5F5F5;
 }
 .portfolioArea .PortfolioMenu {
   display: flex;

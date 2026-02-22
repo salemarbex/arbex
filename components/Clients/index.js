@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Grid } from '@mui/material'
 import SectionTitle from '../Title'
 import { supabase } from '../../lib/supabase'
+import { useLanguage } from '../../lib/LanguageContext'
 
 const CLIENTS_PER_PAGE = 8
 
 const Clients = ({ className = '' }) => {
+    const { t } = useLanguage();
     const [allClients, setAllClients] = useState([])
     const [visibleCount, setVisibleCount] = useState(CLIENTS_PER_PAGE)
     const [loading, setLoading] = useState(true)
@@ -60,8 +62,8 @@ const Clients = ({ className = '' }) => {
             <Grid container className="container">
                 <Grid item xs={12}>
                     <SectionTitle
-                        title="Our Clients"
-                        subTitle="Trusted Partners"
+                        title={t('clients.title')}
+                        subTitle={t('clients.subtitle')}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -93,7 +95,7 @@ const Clients = ({ className = '' }) => {
                         {hasMore && (
                             <div className="loadMoreWrapper">
                                 <button className="btnStyle" onClick={handleLoadMore}>
-                                    Load More
+                                    {t('clients.loadMore')}
                                 </button>
                             </div>
                         )}

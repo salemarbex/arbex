@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Grid } from '@mui/material'
 import SectionTitle from '../Title'
 import { supabase } from '../../lib/supabase'
+import { useLanguage } from '../../lib/LanguageContext'
 
 const LOGOS_PER_PAGE = 8
 
 const Accreditation = ({ className = '' }) => {
+  const { t } = useLanguage();
   const [allLogos, setAllLogos] = useState([])
   const [visibleCount, setVisibleCount] = useState(LOGOS_PER_PAGE)
   const [loading, setLoading] = useState(true)
@@ -56,18 +58,18 @@ const Accreditation = ({ className = '' }) => {
       <Grid container className="container">
         <Grid item xs={12}>
           <SectionTitle
-            title="Our Accreditations"
-            subTitle="Trusted By"
+            title={t('accreditation.title')}
+            subTitle={t('accreditation.subtitle')}
           />
         </Grid>
         <Grid item xs={12}>
           {loading ? (
             <div style={{ textAlign: 'center', padding: '40px 0' }}>
-              <p>Loading accreditations...</p>
+              <p>{t('accreditation.loading')}</p>
             </div>
           ) : allLogos.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '40px 0' }}>
-              <p>No accreditations found.</p>
+              <p>{t('accreditation.noData')}</p>
             </div>
           ) : (
             <div
@@ -98,7 +100,7 @@ const Accreditation = ({ className = '' }) => {
               {hasMore && (
                 <div className="loadMoreWrapper">
                   <button className="btnStyle" onClick={handleLoadMore}>
-                    Load More
+                    {t('accreditation.loadMore')}
                   </button>
                 </div>
               )}

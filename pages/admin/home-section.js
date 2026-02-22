@@ -23,7 +23,11 @@ const HomeSectionAdmin = () => {
         heading_line2: 'As Like A Friend.',
         show_button: true,
         button_text: 'Contact us now',
-        video_url: '/videos/hero-video.mp4'
+        video_url: '/videos/hero-video.mp4',
+        subtitle_ar: '',
+        heading_line1_ar: '',
+        heading_line2_ar: '',
+        button_text_ar: ''
     })
     const [videoFile, setVideoFile] = useState(null)
     const [videoPreview, setVideoPreview] = useState(null)
@@ -102,7 +106,11 @@ const HomeSectionAdmin = () => {
                 { section: 'home', field_key: 'heading_line2', field_value: formData.heading_line2 },
                 { section: 'home', field_key: 'show_button', field_value: formData.show_button.toString() },
                 { section: 'home', field_key: 'button_text', field_value: formData.button_text },
-                { section: 'home', field_key: 'video_url', field_value: videoUrl }
+                { section: 'home', field_key: 'video_url', field_value: videoUrl },
+                { section: 'home', field_key: 'subtitle_ar', field_value: formData.subtitle_ar || '' },
+                { section: 'home', field_key: 'heading_line1_ar', field_value: formData.heading_line1_ar || '' },
+                { section: 'home', field_key: 'heading_line2_ar', field_value: formData.heading_line2_ar || '' },
+                { section: 'home', field_key: 'button_text_ar', field_value: formData.button_text_ar || '' }
             ]
 
             for (const update of updates) {
@@ -188,9 +196,44 @@ const HomeSectionAdmin = () => {
                                 </Grid>
 
                                 <Grid item xs={12}>
-                                    <h3 className="sectionTitle">Button Settings</h3>
+                                    <h3 className="sectionTitle">Arabic Content - المحتوى العربي</h3>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        label="العنوان الفرعي (Subtitle Arabic)"
+                                        name="subtitle_ar"
+                                        value={formData.subtitle_ar}
+                                        onChange={handleInputChange}
+                                        fullWidth
+                                        inputProps={{ dir: 'rtl', style: { fontFamily: 'Cairo, sans-serif' } }}
+                                        helperText="النص الصغير فوق العنوان الرئيسي"
+                                    />
                                 </Grid>
                                 <Grid item xs={12} md={6}>
+                                    <TextField
+                                        label="السطر الأول (Heading Line 1 Arabic)"
+                                        name="heading_line1_ar"
+                                        value={formData.heading_line1_ar}
+                                        onChange={handleInputChange}
+                                        fullWidth
+                                        inputProps={{ dir: 'rtl', style: { fontFamily: 'Cairo, sans-serif' } }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        label="السطر الثاني (Heading Line 2 Arabic)"
+                                        name="heading_line2_ar"
+                                        value={formData.heading_line2_ar}
+                                        onChange={handleInputChange}
+                                        fullWidth
+                                        inputProps={{ dir: 'rtl', style: { fontFamily: 'Cairo, sans-serif' } }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <h3 className="sectionTitle">Button Settings</h3>
+                                </Grid>
+                                <Grid item xs={12} md={4}>
                                     <FormControlLabel
                                         control={
                                             <Switch
@@ -203,14 +246,25 @@ const HomeSectionAdmin = () => {
                                         label="Show Contact Button"
                                     />
                                 </Grid>
-                                <Grid item xs={12} md={6}>
+                                <Grid item xs={12} md={4}>
                                     <TextField
-                                        label="Button Text"
+                                        label="Button Text (English)"
                                         name="button_text"
                                         value={formData.button_text}
                                         onChange={handleInputChange}
                                         fullWidth
                                         disabled={!formData.show_button}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={4}>
+                                    <TextField
+                                        label="نص الزر (Button Text Arabic)"
+                                        name="button_text_ar"
+                                        value={formData.button_text_ar}
+                                        onChange={handleInputChange}
+                                        fullWidth
+                                        disabled={!formData.show_button}
+                                        inputProps={{ dir: 'rtl', style: { fontFamily: 'Cairo, sans-serif' } }}
                                     />
                                 </Grid>
 

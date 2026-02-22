@@ -21,7 +21,11 @@ const ConsultantSectionAdmin = () => {
         paragraph1: '',
         paragraph2: '',
         image_url: '/images/about/1.jpg',
-        signature_url: '/images/about/1.png'
+        signature_url: '/images/about/1.png',
+        title_ar: '',
+        subtitle_ar: '',
+        paragraph1_ar: '',
+        paragraph2_ar: ''
     })
     const [imageFile, setImageFile] = useState(null)
     const [signatureFile, setSignatureFile] = useState(null)
@@ -117,7 +121,11 @@ const ConsultantSectionAdmin = () => {
                 { section: 'consultant', field_key: 'paragraph1', field_value: formData.paragraph1 },
                 { section: 'consultant', field_key: 'paragraph2', field_value: formData.paragraph2 },
                 { section: 'consultant', field_key: 'image_url', field_value: imageUrl },
-                { section: 'consultant', field_key: 'signature_url', field_value: signatureUrl }
+                { section: 'consultant', field_key: 'signature_url', field_value: signatureUrl },
+                { section: 'consultant', field_key: 'title_ar', field_value: formData.title_ar || '' },
+                { section: 'consultant', field_key: 'subtitle_ar', field_value: formData.subtitle_ar || '' },
+                { section: 'consultant', field_key: 'paragraph1_ar', field_value: formData.paragraph1_ar || '' },
+                { section: 'consultant', field_key: 'paragraph2_ar', field_value: formData.paragraph2_ar || '' }
             ]
 
             for (const update of updates) {
@@ -171,7 +179,7 @@ const ConsultantSectionAdmin = () => {
                         <form onSubmit={handleSubmit}>
                             <Grid container spacing={3}>
                                 <Grid item xs={12}>
-                                    <h3 className="sectionTitle">Text Content</h3>
+                                    <h3 className="sectionTitle">English Content</h3>
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <TextField
@@ -211,6 +219,54 @@ const ConsultantSectionAdmin = () => {
                                         fullWidth
                                         multiline
                                         rows={4}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <h3 className="sectionTitle">Arabic Content - المحتوى العربي</h3>
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        label="عنوان القسم (Section Title Arabic)"
+                                        name="title_ar"
+                                        value={formData.title_ar}
+                                        onChange={handleInputChange}
+                                        fullWidth
+                                        inputProps={{ dir: 'rtl', style: { fontFamily: 'Cairo, sans-serif' } }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        label="العنوان الفرعي (Subtitle Arabic)"
+                                        name="subtitle_ar"
+                                        value={formData.subtitle_ar}
+                                        onChange={handleInputChange}
+                                        fullWidth
+                                        inputProps={{ dir: 'rtl', style: { fontFamily: 'Cairo, sans-serif' } }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        label="الفقرة 1 (Paragraph 1 Arabic)"
+                                        name="paragraph1_ar"
+                                        value={formData.paragraph1_ar}
+                                        onChange={handleInputChange}
+                                        fullWidth
+                                        multiline
+                                        rows={4}
+                                        inputProps={{ dir: 'rtl', style: { fontFamily: 'Cairo, sans-serif' } }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        label="الفقرة 2 (Paragraph 2 Arabic)"
+                                        name="paragraph2_ar"
+                                        value={formData.paragraph2_ar}
+                                        onChange={handleInputChange}
+                                        fullWidth
+                                        multiline
+                                        rows={4}
+                                        inputProps={{ dir: 'rtl', style: { fontFamily: 'Cairo, sans-serif' } }}
                                     />
                                 </Grid>
 

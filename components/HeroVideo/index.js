@@ -2,15 +2,21 @@ import React, { useState, useEffect } from 'react'
 import { Button, Grid } from '@mui/material';
 import Link from 'next/link'
 import { supabase } from '../../lib/supabase'
+import { useLanguage } from '../../lib/LanguageContext'
 
 const HeroVideo = ({ className = '' }) => {
+    const { t, isRTL } = useLanguage();
     const [content, setContent] = useState({
-        subtitle: 'The Most Trusted Legal Firm',
-        heading_line1: 'We Fight For Your Justice',
-        heading_line2: 'As Like A Friend.',
+        subtitle: '',
+        heading_line1: '',
+        heading_line2: '',
         show_button: true,
-        button_text: 'Contact us now',
-        video_url: '/videos/hero-video.mp4'
+        button_text: '',
+        video_url: '/videos/hero-video.mp4',
+        subtitle_ar: '',
+        heading_line1_ar: '',
+        heading_line2_ar: '',
+        button_text_ar: ''
     })
 
     useEffect(() => {
@@ -60,14 +66,14 @@ const HeroVideo = ({ className = '' }) => {
             </div>
             <Grid container className="container heroContent">
                 <Grid item lg={8} xs={12}>
-                    <p>{content.subtitle}</p>
+                    <p>{(isRTL && content.subtitle_ar) || content.subtitle || t('hero.subtitle')}</p>
                     <h2>
-                        <span>{content.heading_line1}</span>
-                        <span>{content.heading_line2}</span>
+                        <span>{(isRTL && content.heading_line1_ar) || content.heading_line1 || t('hero.title1')}</span>
+                        <span>{(isRTL && content.heading_line2_ar) || content.heading_line2 || t('hero.title2')}</span>
                     </h2>
                     {content.show_button && (
                         <a href="#contact" className="btnStyle btnStyle3">
-                            {content.button_text}
+                            {(isRTL && content.button_text_ar) || content.button_text || t('hero.button')}
                         </a>
                     )}
                 </Grid>

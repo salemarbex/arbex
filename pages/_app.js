@@ -12,28 +12,46 @@ import "slick-carousel/slick/slick-theme.css";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import "../styles/sass/style.scss";
+import "../styles/rtl.css";
 
 // component 
 
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import FooterArea from "../components/FooterArea";
+import { LanguageProvider } from "../lib/LanguageContext";
 
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isAdminPage = router.pathname.startsWith('/admin');
+  const isArabic = router.pathname.startsWith('/ar');
+
+  useEffect(() => {
+    // Set direction on html element based on route
+    document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
+    document.documentElement.lang = isArabic ? 'ar' : 'en';
+    
+    if (isArabic) {
+      document.body.classList.add('rtl');
+      document.body.classList.remove('ltr');
+    } else {
+      document.body.classList.add('ltr');
+      document.body.classList.remove('rtl');
+    }
+  }, [isArabic]);
 
   return (
-    <Fragment>
-      <Head>
-        <title>Arbex Law - Legal Consultancy</title>
-      </Head>
-      
-      <Component {...pageProps} />
-      <ToastContainer />
-      {!isAdminPage && <FooterArea />}
-    </Fragment>
-
+    <LanguageProvider>
+      <Fragment>
+        <Head>
+          <title>{isArabic ? 'أربكس للمحاماة - الاستشارات القانونية' : 'Arbex Law - Legal Consultancy'}</title>
+        </Head>
+        
+        <Component {...pageProps} />
+        <ToastContainer position={isArabic ? 'top-left' : 'top-right'} />
+        {!isAdminPage && <FooterArea />}
+      </Fragment>
+    </LanguageProvider>
   )
 }
 

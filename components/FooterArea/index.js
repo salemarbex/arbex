@@ -1,28 +1,32 @@
 import React from 'react'
 import Link from 'next/link'
 import { Grid } from '@mui/material'
-
-const footerLinks = [
-    {
-        title: 'Quick Link', menus: [
-            { name: 'Home', route: '/home/#home' },
-            { name: 'About', route: '/home/#about' },
-            { name: 'Consultant', route: '/home/#consultant' },
-            { name: 'Specialities', route: '/home/#specialities' },
-            { name: 'Accreditation', route: '/home/#accreditation' },
-            { name: 'Clients', route: '/home/#clients' },
-        ]
-    },
-    {
-        title: 'More Links', menus: [
-            { name: 'Vision & Mission', route: '/home/#vision' },
-            { name: 'Awareness', route: '/home/#awareness' },
-            { name: 'Contact Us', route: '/home/#contact' },
-        ]
-    },
-]
+import { useLanguage } from '../../lib/LanguageContext'
 
 const FooterArea = () => {
+    const { t, locale } = useLanguage();
+    const homePath = locale === 'ar' ? '/ar/home' : '/home';
+
+    const footerLinks = [
+        {
+            title: t('footer.quickLink'), menus: [
+                { name: t('nav.home'), route: `${homePath}#home` },
+                { name: t('nav.about'), route: `${homePath}#about` },
+                { name: t('nav.consultant'), route: `${homePath}#consultant` },
+                { name: t('nav.specialities'), route: `${homePath}#specialities` },
+                { name: t('nav.accreditation'), route: `${homePath}#accreditation` },
+                { name: t('nav.clients'), route: `${homePath}#clients` },
+            ]
+        },
+        {
+            title: t('footer.moreLinks'), menus: [
+                { name: t('nav.vision'), route: `${homePath}#vision` },
+                { name: t('nav.awareness'), route: `${homePath}#awareness` },
+                { name: t('nav.contact'), route: `${homePath}#contact` },
+            ]
+        },
+    ];
+
     return (
         <footer className="footerArea">
             <Grid className="footerTopArea">
@@ -32,10 +36,10 @@ const FooterArea = () => {
                     className="container">
                     <Grid item lg={3} sm={6} xs={12}>
                         <Grid className="footerLogo">
-                            <Link href="/home">
+                            <Link href={homePath}>
                                 <img src="/images/logo/arbex.png" alt="Arbex Law" />
                             </Link>
-                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature</p>
+                            <p>{t('footer.description')}</p>
                         </Grid>
                     </Grid>
                     {footerLinks.map((menu, i) => (
@@ -52,13 +56,14 @@ const FooterArea = () => {
                     ))}
                     <Grid item lg={3} sm={6} xs={12}>
                         <div className="footerWrap footerContact">
-                            <h3>Contact Us</h3>
+                            <h3>{t('footer.contactUs')}</h3>
                             <ul>
-                                <li className="addressText">Head Office Address</li>
-                                <li className="addressText">Zone 32, Street 958, Building 52,</li>
-                                <li className="addressText">Floor 1, Office 6, Doha, Qatar</li>
-                                <li><a href="tel:+97470202010">Phone: +974 70202010</a></li>
-                                <li><a href="mailto:info@arbex.law">Email: info@arbex.law</a></li>
+                                <li className="addressText">{t('footer.headOffice')}</li>
+                                <li className="addressText">{t('contact.addressLine1')}</li>
+                                <li className="addressText">{t('contact.addressLine2')}</li>
+                                <li className="addressText">{t('contact.addressLine3')}</li>
+                                <li><a href="tel:+97470202010">{t('contact.phone')}: {t('header.phone')}</a></li>
+                                <li><a href="mailto:info@arbex.law">{t('contact.email')}: info@arbex.law</a></li>
                             </ul>
                         </div>
                     </Grid>
@@ -68,10 +73,10 @@ const FooterArea = () => {
                 <Grid container spacing={3} className="container" alignItems="center">
                     <Grid item md={8} sm={10} xs={12}>
                         <span className="copyrightText">
-                            All rights reserved © 2026 ARBEX | Powered by 
+                            {t('footer.copyright')} 
                             <a href="https://wafra.net" target="_blank" rel="noopener noreferrer" className="wafraLink">
                                 <img src="/images/wafra_logo.png" alt="WAFRA" className="wafraLogo" />
-                                WAFRA
+                                {locale === 'ar' ? 'الوفرة' : 'WAFRA'}
                             </a>
                         </span>
                     </Grid>

@@ -37,6 +37,7 @@ const ContactPurposesAdmin = () => {
     const [selectedPurpose, setSelectedPurpose] = useState(null)
     const [formData, setFormData] = useState({
         label: '',
+        label_ar: '',
         is_active: true
     })
     const [saving, setSaving] = useState(false)
@@ -67,12 +68,14 @@ const ContactPurposesAdmin = () => {
             setSelectedPurpose(purpose)
             setFormData({
                 label: purpose.label,
+                label_ar: purpose.label_ar || '',
                 is_active: purpose.is_active
             })
         } else {
             setSelectedPurpose(null)
             setFormData({
                 label: '',
+                label_ar: '',
                 is_active: true
             })
         }
@@ -82,7 +85,7 @@ const ContactPurposesAdmin = () => {
     const handleCloseDialog = () => {
         setDialogOpen(false)
         setSelectedPurpose(null)
-        setFormData({ label: '', is_active: true })
+        setFormData({ label: '', label_ar: '', is_active: true })
     }
 
     const handleInputChange = (e) => {
@@ -107,6 +110,7 @@ const ContactPurposesAdmin = () => {
         try {
             const purposeData = {
                 label: formData.label.trim(),
+                label_ar: formData.label_ar?.trim() || '',
                 is_active: formData.is_active,
                 display_order: selectedPurpose?.display_order ?? purposes.length
             }
@@ -254,7 +258,8 @@ const ContactPurposesAdmin = () => {
                                             <TableHead>
                                                 <TableRow>
                                                     <TableCell width="50">#</TableCell>
-                                                    <TableCell>Purpose Label</TableCell>
+                                                    <TableCell>Purpose Label (EN)</TableCell>
+                                                    <TableCell>Purpose Label (AR)</TableCell>
                                                     <TableCell width="100" align="center">Active</TableCell>
                                                     <TableCell width="100" align="center">Order</TableCell>
                                                     <TableCell width="120" align="center">Actions</TableCell>
@@ -263,7 +268,7 @@ const ContactPurposesAdmin = () => {
                                             <TableBody>
                                                 {purposes.length === 0 ? (
                                                     <TableRow>
-                                                        <TableCell colSpan={5} align="center" style={{ padding: 40, color: '#999' }}>
+                                                        <TableCell colSpan={6} align="center" style={{ padding: 40, color: '#999' }}>
                                                             No contact purposes added yet. Click "Add Purpose" to create one.
                                                         </TableCell>
                                                     </TableRow>
@@ -273,6 +278,9 @@ const ContactPurposesAdmin = () => {
                                                             <TableCell>{index + 1}</TableCell>
                                                             <TableCell>
                                                                 <strong>{purpose.label}</strong>
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <span dir="rtl" style={{ fontFamily: 'Cairo, sans-serif' }}>{purpose.label_ar || '—'}</span>
                                                             </TableCell>
                                                             <TableCell align="center">
                                                                 <Switch
@@ -339,7 +347,7 @@ const ContactPurposesAdmin = () => {
                                     autoFocus
                                     margin="dense"
                                     name="label"
-                                    label="Purpose Label"
+                                    label="Purpose Label (English)"
                                     placeholder="e.g. Legal Consultation"
                                     fullWidth
                                     value={formData.label}
@@ -347,6 +355,18 @@ const ContactPurposesAdmin = () => {
                                     required
                                     variant="outlined"
                                     style={{ marginBottom: 16 }}
+                                />
+                                <TextField
+                                    margin="dense"
+                                    name="label_ar"
+                                    label="التسمية بالعربية (Purpose Label Arabic)"
+                                    placeholder="مثال: استشارة قانونية"
+                                    fullWidth
+                                    value={formData.label_ar}
+                                    onChange={handleInputChange}
+                                    variant="outlined"
+                                    style={{ marginBottom: 16 }}
+                                    inputProps={{ dir: 'rtl', style: { fontFamily: 'Cairo, sans-serif' } }}
                                 />
                                 <FormControlLabel
                                     control={

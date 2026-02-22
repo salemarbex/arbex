@@ -36,7 +36,11 @@ INSERT INTO public.site_content (section, field_key, field_value) VALUES
     ('home', 'heading_line2', 'As Like A Friend.'),
     ('home', 'show_button', 'true'),
     ('home', 'button_text', 'Contact us now'),
-    ('home', 'video_url', '/videos/hero-video.mp4')
+    ('home', 'video_url', '/videos/hero-video.mp4'),
+    ('home', 'subtitle_ar', ''),
+    ('home', 'heading_line1_ar', ''),
+    ('home', 'heading_line2_ar', ''),
+    ('home', 'button_text_ar', '')
 ON CONFLICT (section, field_key) DO UPDATE SET field_value = EXCLUDED.field_value;
 
 -- Insert default About section content
@@ -44,7 +48,10 @@ INSERT INTO public.site_content (section, field_key, field_value) VALUES
     ('about', 'title', 'About Us'),
     ('about', 'paragraph1', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at'),
     ('about', 'paragraph2', 'and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum'),
-    ('about', 'image_url', '/images/about/2.jpg')
+    ('about', 'image_url', '/images/about/2.jpg'),
+    ('about', 'title_ar', ''),
+    ('about', 'paragraph1_ar', ''),
+    ('about', 'paragraph2_ar', '')
 ON CONFLICT (section, field_key) DO UPDATE SET field_value = EXCLUDED.field_value;
 
 -- Insert default Consultant section content
@@ -54,7 +61,11 @@ INSERT INTO public.site_content (section, field_key, field_value) VALUES
     ('consultant', 'paragraph1', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at'),
     ('consultant', 'paragraph2', 'and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum'),
     ('consultant', 'image_url', '/images/about/1.jpg'),
-    ('consultant', 'signature_url', '/images/about/1.png')
+    ('consultant', 'signature_url', '/images/about/1.png'),
+    ('consultant', 'title_ar', ''),
+    ('consultant', 'subtitle_ar', ''),
+    ('consultant', 'paragraph1_ar', ''),
+    ('consultant', 'paragraph2_ar', '')
 ON CONFLICT (section, field_key) DO UPDATE SET field_value = EXCLUDED.field_value;
 
 -- =============================================
@@ -104,6 +115,9 @@ CREATE TABLE public.awareness (
     subtitle VARCHAR(255),
     details TEXT,
     image_url TEXT,
+    title_ar VARCHAR(255) DEFAULT '',
+    subtitle_ar VARCHAR(255) DEFAULT '',
+    details_ar TEXT DEFAULT '',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -120,6 +134,7 @@ DROP TABLE IF EXISTS public.contact_purposes;
 CREATE TABLE public.contact_purposes (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     label VARCHAR(255) NOT NULL,
+    label_ar VARCHAR(255) DEFAULT '',
     display_order INTEGER DEFAULT 0,
     is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -216,3 +231,43 @@ CREATE POLICY "Allow all updates" ON storage.objects
 
 CREATE POLICY "Allow all deletes" ON storage.objects
     FOR DELETE USING (true);
+
+-- =============================================
+-- ARABIC LANGUAGE SUPPORT MIGRATION
+-- Run this on existing databases to add Arabic fields
+-- =============================================
+
+-- Add Arabic columns to awareness table (if not exists)
+DO $$ BEGIN
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='awareness' AND column_name='title_ar') THEN
+        ALTER TABLE public.awareness ADD COLUMN title_ar VARCHAR(255) DEFAULT '';
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='awareness' AND column_name='subtitle_ar') THEN
+        ALTER TABLE public.awareness ADD COLUMN subtitle_ar VARCHAR(255) DEFAULT '';
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='awareness' AND column_name='details_ar') THEN
+        ALTER TABLE public.awareness ADD COLUMN details_ar TEXT DEFAULT '';
+    END IF;
+END $$;
+
+-- Add Arabic column to contact_purposes table (if not exists)
+DO $$ BEGIN
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='contact_purposes' AND column_name='label_ar') THEN
+        ALTER TABLE public.contact_purposes ADD COLUMN label_ar VARCHAR(255) DEFAULT '';
+    END IF;
+END $$;
+
+-- Insert Arabic content keys for site_content (home, about, consultant)
+INSERT INTO public.site_content (section, field_key, field_value) VALUES
+    ('home', 'subtitle_ar', ''),
+    ('home', 'heading_line1_ar', ''),
+    ('home', 'heading_line2_ar', ''),
+    ('home', 'button_text_ar', ''),
+    ('about', 'title_ar', ''),
+    ('about', 'paragraph1_ar', ''),
+    ('about', 'paragraph2_ar', ''),
+    ('consultant', 'title_ar', ''),
+    ('consultant', 'subtitle_ar', ''),
+    ('consultant', 'paragraph1_ar', ''),
+    ('consultant', 'paragraph2_ar', '')
+ON CONFLICT (section, field_key) DO NOTHING;

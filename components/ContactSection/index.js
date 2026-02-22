@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Grid, Button } from '@mui/material'
 import { toast } from 'react-toastify'
 import { supabase } from '../../lib/supabase'
+import { useLanguage } from '../../lib/LanguageContext'
 
 const ContactSection = ({ className = '' }) => {
+    const { t, isRTL } = useLanguage();
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -45,15 +47,15 @@ const ContactSection = ({ className = '' }) => {
 
     const validate = () => {
         const newErrors = {}
-        if (!formData.name.trim()) newErrors.name = 'Name is required'
+        if (!formData.name.trim()) newErrors.name = t('contact.errors.nameRequired')
         if (!formData.email.trim()) {
-            newErrors.email = 'Email is required'
+            newErrors.email = t('contact.errors.emailRequired')
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Please enter a valid email'
+            newErrors.email = t('contact.errors.emailInvalid')
         }
-        if (!formData.phone.trim()) newErrors.phone = 'Phone is required'
-        if (!formData.purpose) newErrors.purpose = 'Please select a purpose'
-        if (!formData.description.trim()) newErrors.description = 'Message is required'
+        if (!formData.phone.trim()) newErrors.phone = t('contact.errors.phoneRequired')
+        if (!formData.purpose) newErrors.purpose = t('contact.errors.purposeRequired')
+        if (!formData.description.trim()) newErrors.description = t('contact.errors.messageRequired')
         return newErrors
     }
 
@@ -79,7 +81,7 @@ const ContactSection = ({ className = '' }) => {
             const data = await response.json()
 
             if (response.ok) {
-                toast.success('Your message has been sent successfully!')
+                toast.success(t('contact.successMessage'))
                 setFormData({
                     name: '',
                     phone: '',
@@ -88,11 +90,11 @@ const ContactSection = ({ className = '' }) => {
                     description: ''
                 })
             } else {
-                toast.error(data.message || 'Failed to send message. Please try again.')
+                toast.error(data.message || t('contact.errorMessage'))
             }
         } catch (error) {
             console.error('Contact form error:', error)
-            toast.error('Failed to send message. Please try again.')
+            toast.error(t('contact.errorMessage'))
         } finally {
             setLoading(false)
         }
@@ -104,15 +106,15 @@ const ContactSection = ({ className = '' }) => {
                 {/* Contact Info */}
                 <Grid item md={5} xs={12}>
                     <Grid className="contactUsInfo">
-                        <h3>Our Contacts</h3>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
-                        <h4>Address</h4>
-                        <span>Zone 32, Street 958, Building 52</span>
-                        <span>Floor 1, Office 6</span>
-                        <span>Doha, Qatar</span>
-                        <h4>Phone</h4>
-                        <span><a href="tel:+97470202010">+974 70202010</a></span>
-                        <h4>Email</h4>
+                        <h3>{t('contact.title')}</h3>
+                        <p>{t('contact.description')}</p>
+                        <h4>{t('contact.address')}</h4>
+                        <span>{t('contact.addressLine1')}</span>
+                        <span>{t('contact.addressLine2')}</span>
+                        <span>{t('contact.addressLine3')}</span>
+                        <h4>{t('contact.phone')}</h4>
+                        <span><a href="tel:+97470202010">{t('header.phone')}</a></span>
+                        <h4>{t('contact.email')}</h4>
                         <span><a href="mailto:info@arbex.law">info@arbex.law</a></span>
                     </Grid>
                 </Grid>
@@ -120,13 +122,13 @@ const ContactSection = ({ className = '' }) => {
                 {/* Contact Form */}
                 <Grid item md={7} xs={12}>
                     <Grid className="contactUSForm">
-                        <h3>Quick Contact Form</h3>
+                        <h3>{t('contact.formTitle')}</h3>
                         <form onSubmit={handleSubmit} className="contactForm">
                             <Grid container spacing={3}>
                                 <Grid item xs={12} sm={6}>
                                     <Grid className="formInput">
                                         <input
-                                            placeholder="Your Name"
+                                            placeholder={t('contact.placeholders.name')}
                                             value={formData.name}
                                             name="name"
                                             onChange={handleChange}
@@ -139,7 +141,7 @@ const ContactSection = ({ className = '' }) => {
                                 <Grid item xs={12} sm={6}>
                                     <Grid className="formInput">
                                         <input
-                                            placeholder="Phone"
+                                            placeholder={t('contact.placeholders.phone')}
                                             value={formData.phone}
                                             name="phone"
                                             onChange={handleChange}
@@ -152,7 +154,7 @@ const ContactSection = ({ className = '' }) => {
                                 <Grid item xs={12} sm={6}>
                                     <Grid className="formInput">
                                         <input
-                                            placeholder="Email"
+                                            placeholder={t('contact.placeholders.email')}
                                             value={formData.email}
                                             name="email"
                                             onChange={handleChange}
@@ -170,9 +172,9 @@ const ContactSection = ({ className = '' }) => {
                                             onChange={handleChange}
                                             className="form-control"
                                         >
-                                            <option value="">Select Purpose of Contact</option>
+                                            <option value="">{t('contact.placeholders.purpose')}</option>
                                             {purposes.map((p) => (
-                                                <option key={p.id} value={p.label}>{p.label}</option>
+                                                <option key={p.id} value={p.label}>{(isRTL && p.label_ar) || p.label}</option>
                                             ))}
                                         </select>
                                         {errors.purpose && <p className="errorText">{errors.purpose}</p>}
@@ -184,7 +186,7 @@ const ContactSection = ({ className = '' }) => {
                                             className="form-control"
                                             value={formData.description}
                                             onChange={handleChange}
-                                            placeholder="Your Message..."
+                                            placeholder={t('contact.placeholders.message')}
                                             name="description"
                                             rows={5}
                                         />
@@ -197,7 +199,7 @@ const ContactSection = ({ className = '' }) => {
                                         className="btnStyle"
                                         disabled={loading}
                                     >
-                                        {loading ? 'Sending...' : 'Send Message'}
+                                        {loading ? t('contact.sending') : t('contact.send')}
                                     </Button>
                                 </Grid>
                             </Grid>

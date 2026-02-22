@@ -35,7 +35,10 @@ const AwarenessAdmin = () => {
         title: '',
         subtitle: '',
         details: '',
-        image_url: ''
+        image_url: '',
+        title_ar: '',
+        subtitle_ar: '',
+        details_ar: ''
     })
     const [imageFile, setImageFile] = useState(null)
     const [uploading, setUploading] = useState(false)
@@ -68,7 +71,10 @@ const AwarenessAdmin = () => {
                 title: item.title,
                 subtitle: item.subtitle,
                 details: item.details,
-                image_url: item.image_url
+                image_url: item.image_url,
+                title_ar: item.title_ar || '',
+                subtitle_ar: item.subtitle_ar || '',
+                details_ar: item.details_ar || ''
             })
         } else {
             setSelectedItem(null)
@@ -76,7 +82,10 @@ const AwarenessAdmin = () => {
                 title: '',
                 subtitle: '',
                 details: '',
-                image_url: ''
+                image_url: '',
+                title_ar: '',
+                subtitle_ar: '',
+                details_ar: ''
             })
         }
         setImageFile(null)
@@ -90,7 +99,10 @@ const AwarenessAdmin = () => {
             title: '',
             subtitle: '',
             details: '',
-            image_url: ''
+            image_url: '',
+            title_ar: '',
+            subtitle_ar: '',
+            details_ar: ''
         })
         setImageFile(null)
     }
@@ -131,7 +143,10 @@ const AwarenessAdmin = () => {
                 title: formData.title,
                 subtitle: formData.subtitle,
                 details: formData.details,
-                image_url: imageUrl
+                image_url: imageUrl,
+                title_ar: formData.title_ar || '',
+                subtitle_ar: formData.subtitle_ar || '',
+                details_ar: formData.details_ar || ''
             }
 
             if (selectedItem) {
@@ -281,6 +296,9 @@ const AwarenessAdmin = () => {
                         <form onSubmit={handleSubmit}>
                             <DialogContent>
                                 <Grid container spacing={3}>
+                                    <Grid item xs={12}>
+                                        <h4 style={{ margin: '0 0 5px', fontFamily: 'Playfair Display, serif', color: '#282e3f' }}>English Content</h4>
+                                    </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
                                             label="Title"
@@ -313,6 +331,43 @@ const AwarenessAdmin = () => {
                                             rows={4}
                                         />
                                     </Grid>
+
+                                    <Grid item xs={12}>
+                                        <h4 style={{ margin: '10px 0 5px', fontFamily: 'Playfair Display, serif', color: '#282e3f' }}>Arabic Content - المحتوى العربي</h4>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <TextField
+                                            label="العنوان (Title Arabic)"
+                                            name="title_ar"
+                                            value={formData.title_ar}
+                                            onChange={handleInputChange}
+                                            fullWidth
+                                            inputProps={{ dir: 'rtl', style: { fontFamily: 'Cairo, sans-serif' } }}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <TextField
+                                            label="العنوان الفرعي (Subtitle Arabic)"
+                                            name="subtitle_ar"
+                                            value={formData.subtitle_ar}
+                                            onChange={handleInputChange}
+                                            fullWidth
+                                            inputProps={{ dir: 'rtl', style: { fontFamily: 'Cairo, sans-serif' } }}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            label="التفاصيل (Details Arabic)"
+                                            name="details_ar"
+                                            value={formData.details_ar}
+                                            onChange={handleInputChange}
+                                            fullWidth
+                                            multiline
+                                            rows={4}
+                                            inputProps={{ dir: 'rtl', style: { fontFamily: 'Cairo, sans-serif' } }}
+                                        />
+                                    </Grid>
+
                                     <Grid item xs={12}>
                                         <div className="imageUpload">
                                             <label>Image (600x594 recommended)</label>

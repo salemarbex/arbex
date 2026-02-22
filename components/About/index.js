@@ -3,14 +3,19 @@ import Link from 'next/link'
 import { Button, Grid } from '@mui/material'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { supabase } from '../../lib/supabase'
+import { useLanguage } from '../../lib/LanguageContext'
 
 const About = ({ subTitle, title, videoId, className = '', signature, pragraphs, images, changeOrder = "", hideButton = false, hideSignature = false, fetchFromSupabase = false }) => {
+    const { t, isRTL } = useLanguage();
     const [videoVisible, setVideoVisible] = useState(false);
     const [content, setContent] = useState({
         title: title || 'About Us',
         paragraph1: pragraphs?.[0] || '',
         paragraph2: pragraphs?.[1] || '',
-        image_url: images || '/images/about/2.jpg'
+        image_url: images || '/images/about/2.jpg',
+        title_ar: '',
+        paragraph1_ar: '',
+        paragraph2_ar: ''
     })
 
     useEffect(() => {
@@ -45,11 +50,16 @@ const About = ({ subTitle, title, videoId, className = '', signature, pragraphs,
     };
 
     const displayParagraphs = fetchFromSupabase 
-        ? [content.paragraph1, content.paragraph2].filter(p => p)
+        ? [
+            (isRTL && content.paragraph1_ar) || content.paragraph1, 
+            (isRTL && content.paragraph2_ar) || content.paragraph2
+          ].filter(p => p)
         : pragraphs
 
     const displayImage = fetchFromSupabase ? content.image_url : images
-    const displayTitle = fetchFromSupabase ? content.title : title
+    const displayTitle = fetchFromSupabase 
+        ? ((isRTL && content.title_ar) || content.title) 
+        : title
 
     return (
         <Grid id="about" className={`aboutArea ${className}`}>
@@ -85,7 +95,7 @@ const About = ({ subTitle, title, videoId, className = '', signature, pragraphs,
                         ))}
                         {!hideButton && (
                             <Link href='/about'>
-                                <Button className="btnStyle">More About Us..</Button>
+                                <Button className="btnStyle">{t('about.moreAbout')}</Button>
                             </Link>
                         )}
                         {!hideSignature && signature && <Grid className="signature">

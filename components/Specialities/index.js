@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid } from '@mui/material'
 import SectionTitle from '../Title'
+import { useLanguage } from '../../lib/LanguageContext'
 
 const services = [
     {
@@ -42,17 +43,27 @@ const services = [
 ]
 
 
+const serviceKeys = ['familyLaw', 'personalInjury', 'businessLaw', 'criminalLaw', 'educationLaw', 'realEstateLaw'];
+
 const Specialities = ({ className = '', title, subTitle }) => {
+    const { t } = useLanguage();
+    
+    const localizedServices = services.map((service, index) => ({
+        ...service,
+        title: t(`specialities.services.${serviceKeys[index]}`),
+        content: t('specialities.serviceDesc'),
+    }));
+
     return (
         <div id="specialities" className={`specialitiesAreaWhite ${className}`}>
             <Grid container spacing={2} className="container">
                 <Grid item xs={12}>
                     <SectionTitle
-                        title={title}
-                        subTitle={subTitle}
+                        title={title || t('specialities.title')}
+                        subTitle={subTitle || t('specialities.subtitle')}
                     />
                 </Grid>
-                {services.map((service, index) => (
+                {localizedServices.map((service, index) => (
                     <Grid item xs={12} xl={4} lg={4} md={6} sm={6} key={index}>
                         <Grid className="serviceWrapWhite">
                             <Grid className="serviceIcon">

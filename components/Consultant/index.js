@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { Grid } from '@mui/material'
 import { supabase } from '../../lib/supabase'
+import { useLanguage } from '../../lib/LanguageContext'
 
 const Consultant = ({ subTitle, title, className = '', signature, pragraphs, images, fetchFromSupabase = false }) => {
+    const { isRTL } = useLanguage();
     const [content, setContent] = useState({
         title: title || 'Consultant',
         subtitle: subTitle || 'Our Expert',
         paragraph1: pragraphs?.[0] || '',
         paragraph2: pragraphs?.[1] || '',
         image_url: images || '/images/about/1.jpg',
-        signature_url: signature || '/images/about/1.png'
+        signature_url: signature || '/images/about/1.png',
+        title_ar: '',
+        subtitle_ar: '',
+        paragraph1_ar: '',
+        paragraph2_ar: ''
     })
 
     useEffect(() => {
@@ -40,12 +46,19 @@ const Consultant = ({ subTitle, title, className = '', signature, pragraphs, ima
     }
 
     const displayParagraphs = fetchFromSupabase 
-        ? [content.paragraph1, content.paragraph2].filter(p => p)
+        ? [
+            (isRTL && content.paragraph1_ar) || content.paragraph1, 
+            (isRTL && content.paragraph2_ar) || content.paragraph2
+          ].filter(p => p)
         : pragraphs
 
     const displayImage = fetchFromSupabase ? content.image_url : images
-    const displayTitle = fetchFromSupabase ? content.title : title
-    const displaySubtitle = fetchFromSupabase ? content.subtitle : subTitle
+    const displayTitle = fetchFromSupabase 
+        ? ((isRTL && content.title_ar) || content.title) 
+        : title
+    const displaySubtitle = fetchFromSupabase 
+        ? ((isRTL && content.subtitle_ar) || content.subtitle) 
+        : subTitle
     const displaySignature = fetchFromSupabase ? content.signature_url : signature
 
     return (

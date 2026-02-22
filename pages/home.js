@@ -15,12 +15,15 @@ import Awareness from '../components/Awareness'
 import Clients from '../components/Clients'
 import ContactSection from '../components/ContactSection'
 import GoogleMap from '../components/GoogleMap'
+import { useLanguage } from '../lib/LanguageContext'
 
 const Home = () => {
+    const { t } = useLanguage();
+    
     return (
         <Fragment>
             <Head>
-                <title>Arbex Law - Legal Consultancy</title>
+                <title>{t('pageTitle.home')}</title>
                 <meta name="description" content="Arbex Law - Professional legal consultancy services in Qatar" />
             </Head>
             <header className="headerArea headerAreaSpanning">
