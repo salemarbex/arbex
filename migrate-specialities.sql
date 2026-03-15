@@ -1,12 +1,16 @@
 -- =========================================
 -- Specialities (Area of Practice) Table
+-- FRESH INSTALL: drops and recreates everything
 -- =========================================
+
+-- Drop existing table (cascades policies)
+DROP TABLE IF EXISTS specialities CASCADE;
 
 -- Section heading content (stored in site_content table)
 INSERT INTO site_content (section, field_key, field_value) VALUES
-    ('specialities', 'title', 'How Can We Help You'),
+    ('specialities', 'title', 'Our Specialties'),
     ('specialities', 'subtitle', 'Area Of Practice'),
-    ('specialities', 'title_ar', 'كيف يمكننا مساعدتك'),
+    ('specialities', 'title_ar', 'اختصاصاتنا'),
     ('specialities', 'subtitle_ar', 'مجالات الممارسة')
 ON CONFLICT (section, field_key) DO UPDATE SET field_value = EXCLUDED.field_value;
 
@@ -23,35 +27,77 @@ CREATE TABLE IF NOT EXISTS specialities (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Enable RLS
-ALTER TABLE specialities ENABLE ROW LEVEL SECURITY;
-
--- Allow public read access
-CREATE POLICY "Allow public read access on specialities"
-    ON specialities FOR SELECT
-    USING (true);
-
--- Allow authenticated users to manage
-CREATE POLICY "Allow authenticated insert on specialities"
-    ON specialities FOR INSERT
-    TO authenticated
-    WITH CHECK (true);
-
-CREATE POLICY "Allow authenticated update on specialities"
-    ON specialities FOR UPDATE
-    TO authenticated
-    USING (true);
-
-CREATE POLICY "Allow authenticated delete on specialities"
-    ON specialities FOR DELETE
-    TO authenticated
-    USING (true);
-
--- Seed with default data
+-- Seed with specialities
 INSERT INTO specialities (icon, title, content, title_ar, content_ar, display_order) VALUES
-    ('fi flaticon-parents', 'Family Law', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'قانون الأسرة', 'هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي.', 1),
-    ('fi flaticon-wounded', 'Personal Injury', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'الإصابة الشخصية', 'هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي.', 2),
-    ('fi flaticon-employee', 'Business Law', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'قانون الأعمال', 'هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي.', 3),
-    ('fi flaticon-thief', 'Criminal Law', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'القانون الجنائي', 'هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي.', 4),
-    ('fi flaticon-university-graduate-hat', 'Education Law', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'قانون التعليم', 'هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي.', 5),
-    ('fi flaticon-house', 'Real Estate Law', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'قانون العقارات', 'هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي.', 6);
+    (
+        'fi flaticon-scale',
+        'Local and International Arbitration',
+        'We provide expert arbitration services in commercial, engineering, and technical disputes at both local and international levels, ensuring fair and efficient resolution.',
+        'التحكيم التجاري والهندسي والتقني المحلي والدولي',
+        'نقدم خدمات تحكيم متخصصة في النزاعات التجارية والهندسية والتقنية على المستويين المحلي والدولي، لضمان حل عادل وفعّال.',
+        1
+    ),
+    (
+        'fi flaticon-lawyer',
+        'Technical Reports & Expert Opinions',
+        'We prepare comprehensive technical reports and expert opinions to support legal cases, combining deep technical knowledge with legal precision.',
+        'إعداد التقارير والخبرة الفنية للقضايا القانونية',
+        'نعدّ تقارير فنية شاملة وآراء خبراء لدعم القضايا القانونية، بالجمع بين المعرفة التقنية العميقة والدقة القانونية.',
+        2
+    ),
+    (
+        'fi flaticon-parents',
+        'Mediation & Dispute Resolution',
+        'Our mediation services help parties reach amicable settlements through structured negotiation, saving time and costs compared to traditional litigation.',
+        'الوساطة وتسوية المنازعات',
+        'تساعد خدمات الوساطة لدينا الأطراف على التوصل إلى تسويات ودية من خلال التفاوض المنظم، مما يوفر الوقت والتكاليف مقارنة بالتقاضي التقليدي.',
+        3
+    ),
+    (
+        'fi flaticon-employee',
+        'Negotiation & Technical Representation',
+        'We represent clients in technical negotiations, advocating for their interests with expertise and professionalism before all relevant parties.',
+        'التفاوض والتمثيل الفني أمام الأطراف',
+        'نمثل العملاء في المفاوضات التقنية، وندافع عن مصالحهم بخبرة واحترافية أمام جميع الأطراف المعنية.',
+        4
+    ),
+    (
+        'fi flaticon-network',
+        'Technical Consultancy',
+        'We offer specialized technical consultancy for contracts and projects, ensuring compliance with standards and optimizing outcomes for all stakeholders.',
+        'الاستشارات التقنية للعقود والمشاريع',
+        'نقدم استشارات تقنية متخصصة للعقود والمشاريع، لضمان الامتثال للمعايير وتحقيق أفضل النتائج لجميع الأطراف.',
+        5
+    ),
+    (
+        'fi flaticon-house',
+        'Project Management & Evaluation',
+        'Our team manages and evaluates technical projects from inception to completion, applying rigorous methodologies to deliver measurable results.',
+        'إدارة وتقييم المشاريع التقنية',
+        'يدير فريقنا المشاريع التقنية ويقيّمها من البداية حتى الإنجاز، بتطبيق منهجيات صارمة لتحقيق نتائج قابلة للقياس.',
+        6
+    ),
+    (
+        'fi flaticon-thief',
+        'IT Audit',
+        'We conduct thorough IT audits to assess system integrity, security vulnerabilities, and compliance, providing actionable recommendations for improvement.',
+        'تدقيق نظم المعلومات',
+        'نجري عمليات تدقيق شاملة لتقنية المعلومات لتقييم سلامة الأنظمة والثغرات الأمنية والامتثال، مع تقديم توصيات عملية للتحسين.',
+        7
+    ),
+    (
+        'fi flaticon-university-graduate-hat',
+        'Systems & Infrastructure Analysis',
+        'We analyze organizational systems and infrastructure to identify gaps, optimize performance, and recommend strategic technology solutions.',
+        'تحليل الأنظمة والبنى التحتية',
+        'نحلل الأنظمة والبنى التحتية المؤسسية لتحديد الثغرات وتحسين الأداء والتوصية بحلول تقنية استراتيجية.',
+        8
+    ),
+    (
+        'fi flaticon-wounded',
+        'Judicial & Committee Support',
+        'We provide impartial and specialized expert opinions to support judicial authorities and technical committees in reaching well-informed decisions.',
+        'دعم الجهات القضائية واللجان الفنية برأي محايد ومتخصص',
+        'نقدم آراء خبراء محايدة ومتخصصة لدعم الجهات القضائية واللجان الفنية في اتخاذ قرارات مستنيرة.',
+        9
+    );

@@ -16,10 +16,10 @@ const defaultServices = [
 const serviceKeys = ['familyLaw', 'personalInjury', 'businessLaw', 'criminalLaw', 'educationLaw', 'realEstateLaw'];
 
 const Specialities = ({ className = '', title, subTitle }) => {
-    const { t, language } = useLanguage();
+    const { t, locale } = useLanguage();
     const [services, setServices] = useState([])
     const [headings, setHeadings] = useState({})
-    const isArabic = language === 'ar'
+    const isArabic = locale === 'ar'
 
     useEffect(() => {
         fetchData()

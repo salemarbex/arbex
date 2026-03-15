@@ -54,10 +54,7 @@ const Home = () => {
             />
             
             {/* Specialities Section */}
-            <Specialities
-                title="How Can We Help You"
-                subTitle="Area Of Practice"
-            />
+            <Specialities />
             
             {/* Accreditation Section */}
             <Accreditation />
