@@ -27,6 +27,13 @@ body.rtl h6 {
     font-family: 'Tajawal', 'Playfair Display', serif;
 }
 
+/* ===== Phone Numbers: always LTR ===== */
+body.rtl a[href^="tel"] {
+    direction: ltr;
+    display: inline-block;
+    unicode-bidi: embed;
+}
+
 /* ===== Language Switcher ===== */
 .languageSwitcher {
     display: inline-flex;

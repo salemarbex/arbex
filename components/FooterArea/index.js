@@ -62,7 +62,7 @@ const FooterArea = () => {
                                 <li className="addressText">{t('contact.addressLine1')}</li>
                                 <li className="addressText">{t('contact.addressLine2')}</li>
                                 <li className="addressText">{t('contact.addressLine3')}</li>
-                                <li><a href="tel:+97470202010">{t('contact.phone')}: {t('header.phone')}</a></li>
+                                <li>{t('contact.phone')}: <a href="tel:+97470202010">{t('header.phone')}</a></li>
                                 <li><a href="mailto:info@arbex.law">{t('contact.email')}: info@arbex.law</a></li>
                             </ul>
                         </div>
