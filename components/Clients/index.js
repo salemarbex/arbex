@@ -72,14 +72,9 @@ const Clients = ({ className = '' }) => {
                         className="clients-grid-wrapper"
                         onMouseMove={handleMouseMove}
                     >
+                        {/* Hover glow overlay */}
+                        <div className="clients-grid__glow" />
                         <div ref={gridRef} className="clients-grid">
-                            {/* Hover glow overlay */}
-                            <div
-                                className="clients-grid__glow"
-                                style={{
-                                    background: 'radial-gradient(500px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(192,181,150,0.15), transparent 70%)'
-                                }}
-                            />
                             {visibleClients.map((client) => (
                                 <div key={client.id} className="clients-grid__cell">
                                     <div className="clients-grid__logo-wrap">

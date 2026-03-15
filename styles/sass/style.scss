@@ -2066,6 +2066,7 @@ body {
     }
 
     &.portfolioAreaStyleTwo {
+        background: #f5f5f5;
 
         .portfolioItem {
             width: 100%;
@@ -3523,12 +3524,16 @@ text-align: center;
 .accreditation-grid__glow {
     pointer-events: none;
     position: absolute;
-    inset: 0;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
     opacity: 0;
     transition: opacity 0.3s;
     z-index: 2;
-    // glow spans all columns so it doesn't break the grid
-    grid-column: 1 / -1;
+    transform: translate(-50%, -50%);
+    left: var(--mouse-x);
+    top: var(--mouse-y);
+    background: radial-gradient(circle, rgba(192, 181, 150, 0.15) 0%, transparent 70%);
 }
 
 .accreditation-grid-wrapper:hover .accreditation-grid__glow {
@@ -3540,15 +3545,6 @@ text-align: center;
     align-items: center;
     justify-content: center;
     padding: 35px 20px;
-    // Use outline so every cell gets its own border and they collapse naturally
-    border: 1px solid rgba(192, 181, 150, 0.2);
-    margin-top: -1px;
-    margin-left: -1px;
-    transition: background 0.3s ease;
-
-    &:hover {
-        background: rgba(192, 181, 150, 0.08);
-    }
 }
 
 .accreditation-grid__logo-wrap {
@@ -3556,12 +3552,27 @@ text-align: center;
     flex-direction: column;
     align-items: center;
     gap: 12px;
+    cursor: pointer;
+    padding: 15px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        img {
+            filter: brightness(1.2);
+        }
+
+        .logoName {
+            opacity: 1;
+            color: #fff;
+        }
+    }
 
     img {
         max-width: 100%;
         max-height: 60px;
         object-fit: contain;
         transition: all 0.3s ease;
+        filter: brightness(0.85);
     }
 
     .logoName {
@@ -3570,6 +3581,7 @@ text-align: center;
         font-weight: 500;
         text-align: center;
         opacity: 0.9;
+        transition: all 0.3s ease;
     }
 }
 
@@ -4218,11 +4230,16 @@ text-align: center;
 .clients-grid__glow {
     pointer-events: none;
     position: absolute;
-    inset: 0;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
     opacity: 0;
     transition: opacity 0.3s;
     z-index: 2;
-    grid-column: 1 / -1;
+    transform: translate(-50%, -50%);
+    left: var(--mouse-x);
+    top: var(--mouse-y);
+    background: radial-gradient(circle, rgba(192, 181, 150, 0.15) 0%, transparent 70%);
 }
 
 .clients-grid-wrapper:hover .clients-grid__glow {
@@ -4234,14 +4251,6 @@ text-align: center;
     align-items: center;
     justify-content: center;
     padding: 35px 20px;
-    border: 1px solid rgba(192, 181, 150, 0.2);
-    margin-top: -1px;
-    margin-left: -1px;
-    transition: background 0.3s ease;
-
-    &:hover {
-        background: rgba(192, 181, 150, 0.08);
-    }
 }
 
 .clients-grid__logo-wrap {
@@ -4249,12 +4258,27 @@ text-align: center;
     flex-direction: column;
     align-items: center;
     gap: 12px;
+    cursor: pointer;
+    padding: 15px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        img {
+            filter: brightness(1.2);
+        }
+
+        .logoName {
+            opacity: 1;
+            color: #fff;
+        }
+    }
 
     img {
         max-width: 100%;
         max-height: 60px;
         object-fit: contain;
         transition: all 0.3s ease;
+        filter: brightness(0.85);
     }
 
     .logoName {
@@ -4263,6 +4287,7 @@ text-align: center;
         font-weight: 500;
         text-align: center;
         opacity: 0.9;
+        transition: all 0.3s ease;
     }
 }
 
@@ -4334,7 +4359,7 @@ text-align: center;
         }
     }
 
-    // Left-align nav items so they start from the divider edge
+    // Left-align nav items with some spacing from the divider edge
     .headerBottomArea .mainMenuWrap {
         text-align: left;
     }
@@ -4350,6 +4375,25 @@ text-align: center;
             .responsiveWrapper {
                 flex-basis: 91.666667% !important;
                 max-width: 91.666667% !important;
+            }
+        }
+
+        // When sticky: show the small logo, give nav items spacing from edge
+        .headerBottomArea.stickyHeader {
+            .logoGridItem {
+                flex-basis: auto !important;
+                max-width: none !important;
+                width: auto !important;
+            }
+
+            .responsiveWrapper {
+                flex: 1 !important;
+                max-width: none !important;
+            }
+
+            .mainMenuWrap {
+                text-align: left !important;
+                margin-left: 75px !important;
             }
         }
     }

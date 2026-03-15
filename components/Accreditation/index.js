@@ -77,14 +77,9 @@ const Accreditation = ({ className = '' }) => {
               className="accreditation-grid-wrapper"
               onMouseMove={handleMouseMove}
             >
+              {/* Hover glow overlay */}
+              <div className="accreditation-grid__glow" />
               <div ref={gridRef} className="accreditation-grid">
-                {/* Hover glow overlay */}
-                <div
-                  className="accreditation-grid__glow"
-                  style={{
-                    background: 'radial-gradient(500px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(192,181,150,0.15), transparent 70%)'
-                  }}
-                />
                 {visibleLogos.map((logo) => (
                   <div key={logo.id} className="accreditation-grid__cell">
                     <div className="accreditation-grid__logo-wrap">

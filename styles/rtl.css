@@ -157,6 +157,13 @@ body.rtl .headerAreaSpanning .headerBottomArea .mainMenuWrap {
     text-align: right;
 }
 
+/* Sticky header RTL: mirror the nav margin from left to right */
+body.rtl .headerAreaSpanning .headerBottomArea.stickyHeader .mainMenuWrap {
+    margin-left: 0 !important;
+    margin-right: 40px !important;
+    text-align: right !important;
+}
+
 /* ===== Navigation RTL ===== */
 body.rtl .mainMenuWrap {
     direction: rtl;
@@ -165,17 +172,18 @@ body.rtl .mainMenuWrap {
 
 body.rtl .mainMenuWrap li {
     text-align: right;
+    padding: 0px 20px !important;
 }
 
-/* Flip first/last child padding: English first-child has padding-left:0, last-child has padding-right:0 */
+/* Flip first/last child padding */
 body.rtl .mainMenuWrap li:first-child {
-    padding-left: 12px;
-    padding-right: 0;
+    padding-left: 20px !important;
+    padding-right: 0 !important;
 }
 
 body.rtl .mainMenuWrap li:last-child {
-    padding-right: 12px;
-    padding-left: 0;
+    padding-right: 20px !important;
+    padding-left: 0 !important;
 }
 
 body.rtl .mainMenuWrap > li > a {
