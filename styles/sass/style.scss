@@ -126,7 +126,7 @@ body {
 }
 
 .aboutArea {
-    padding: 100px 0px 80px;
+    padding: 100px 0;
     position: relative;
     overflow: hidden;
 
@@ -2966,10 +2966,10 @@ body {
 
 .sectionTitle {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
 
-    @media (max-width:991) {
-        margin-bottom: 40px;
+    @media (max-width:991px) {
+        margin-bottom: 35px;
     }
 
     span {
@@ -3379,6 +3379,7 @@ text-align: center;
 
 /* Consultant Section */
 .consultantArea {
+    padding: 100px 0;
     background: #f5f5f5;
     position: relative;
     overflow: hidden;
@@ -3423,6 +3424,7 @@ text-align: center;
 
 /* Specialities Section */
 .specialitiesArea {
+    padding: 100px 0;
     position: relative;
     overflow: hidden;
 
@@ -3488,6 +3490,8 @@ text-align: center;
     }
 
     .sectionTitle {
+        margin-bottom: 30px;
+
         h2, span {
             color: #fff;
         }
@@ -3760,7 +3764,6 @@ text-align: center;
         display: flex;
         justify-content: center;
         gap: 30px;
-        margin-top: 50px;
         flex-wrap: wrap;
         position: relative;
         z-index: 1;
@@ -3825,7 +3828,6 @@ text-align: center;
 
         .ourValuesWrapper {
             gap: 15px;
-            margin-top: 30px;
         }
 
         .valueCard {
@@ -3847,10 +3849,6 @@ text-align: center;
 .awarenessArea {
     padding: 100px 0;
     background: #f5f5f5;
-
-    .awarenessWrapper {
-        margin-top: 50px;
-    }
 
     .awarenessItem {
         position: relative;
@@ -4314,6 +4312,8 @@ text-align: center;
     }
 
     .sectionTitle {
+        margin-bottom: 30px;
+
         h2, span {
             color: #fff;
         }
