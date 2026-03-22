@@ -82,9 +82,7 @@ const FooterArea = () => {
                     </Grid>
                     <Grid item md={4} sm={2} xs={12}>
                         <ul className="socialListFooter">
-                            <li><a href="#"><i className='fa fa-facebook'></i></a></li>
-                            <li><a href="#"><i className='fa fa-twitter'></i></a></li>
-                            <li><a href="#"><i className='fa fa-instagram'></i></a></li>
+                            <li><a href="https://wa.me/97470202010" target="_blank" rel="noopener noreferrer"><i className='fa fa-whatsapp'></i></a></li>
                         </ul>
                     </Grid>
                 </Grid>
