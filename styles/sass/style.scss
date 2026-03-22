@@ -3738,14 +3738,16 @@ text-align: center;
     &::before {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        top: 50%;
+        left: -30%;
+        transform: translateY(-50%);
+        width: 60%;
+        height: 90%;
         background: url('/images/logo/arbex.png') no-repeat center center;
-        background-size: 400px;
+        background-size: contain;
         opacity: 0.03;
         pointer-events: none;
+        z-index: 0;
     }
 
     .sectionTitle {

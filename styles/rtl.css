@@ -378,6 +378,11 @@ body.rtl .ourValuesArea {
     direction: rtl;
 }
 
+body.rtl .ourValuesArea::before {
+    left: auto;
+    right: -30%;
+}
+
 /* ===== Awareness / Portfolio RTL ===== */
 body.rtl .portfolioArea .container {
     direction: rtl;
