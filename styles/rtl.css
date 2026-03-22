@@ -373,6 +373,11 @@ body.rtl .missionSection h2::before {
     right: -68px;
 }
 
+/* ===== Our Values RTL ===== */
+body.rtl .ourValuesArea {
+    direction: rtl;
+}
+
 /* ===== Awareness / Portfolio RTL ===== */
 body.rtl .portfolioArea .container {
     direction: rtl;

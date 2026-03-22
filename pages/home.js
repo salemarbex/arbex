@@ -11,6 +11,7 @@ import Consultant from '../components/Consultant'
 import Specialities from '../components/Specialities'
 import Accreditation from '../components/Accreditation'
 import VisionMission from '../components/VisionMission'
+import OurValues from '../components/OurValues'
 import Awareness from '../components/Awareness'
 import Clients from '../components/Clients'
 import ContactSection from '../components/ContactSection'
@@ -61,6 +62,9 @@ const Home = () => {
             
             {/* Vision & Mission Section */}
             <VisionMission />
+            
+            {/* Our Values Section */}
+            <OurValues />
             
             {/* Awareness Section */}
             <Awareness />
