@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }) {
     <LanguageProvider>
       <Fragment>
         <Head>
-          <title>{isArabic ? 'أربكس للمحاماة - الاستشارات القانونية' : 'Arbex Law - Legal Consultancy'}</title>
+          <title>{isArabic ? 'آربيكس - إستشارات تقنية' : 'ARBEX Law - IT Consultancy'}</title>
         </Head>
         
         <Component {...pageProps} />
