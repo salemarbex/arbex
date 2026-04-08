@@ -627,6 +627,7 @@ body {
     background-attachment: fixed;
     padding: 100px 0px;
     z-index: 1;
+    overflow: hidden;
 
     &::before {
         content: "";
@@ -637,6 +638,26 @@ body {
         left: 0;
         top: 0;
         z-index: -1;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -30%;
+        transform: translateY(-50%);
+        width: 60%;
+        height: 90%;
+        background: url('/images/logo/arbex.png') no-repeat center center;
+        background-size: contain;
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
     }
 
     .contactInfo {
@@ -3465,7 +3486,7 @@ text-align: center;
 /* Accreditation Section */
 .accreditationArea {
     padding: 100px 0;
-    background: #151a30;
+    background: #f2f2f2;
     position: relative;
     overflow: hidden;
 
@@ -3479,7 +3500,7 @@ text-align: center;
         height: 90%;
         background: url('/images/logo/arbex.png') no-repeat center center;
         background-size: contain;
-        opacity: 0.03;
+        opacity: 0.04;
         pointer-events: none;
         z-index: 0;
     }
@@ -3491,10 +3512,6 @@ text-align: center;
 
     .sectionTitle {
         margin-bottom: 30px;
-
-        h2, span {
-            color: #fff;
-        }
     }
 }
 
@@ -3507,14 +3524,10 @@ text-align: center;
 
 .accreditation-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 0;
     position: relative;
     justify-content: center;
-
-    @media (max-width: 992px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
 
     @media (max-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
@@ -3537,7 +3550,7 @@ text-align: center;
     transform: translate(-50%, -50%);
     left: var(--mouse-x);
     top: var(--mouse-y);
-    background: radial-gradient(circle, rgba(192, 181, 150, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(192, 181, 150, 0.2) 0%, transparent 70%);
 }
 
 .accreditation-grid-wrapper:hover .accreditation-grid__glow {
@@ -3562,25 +3575,25 @@ text-align: center;
 
     &:hover {
         img {
-            filter: brightness(1.2);
+            filter: brightness(1.1);
+            transform: scale(1.05);
         }
 
         .logoName {
             opacity: 1;
-            color: #fff;
+            color: #151a30;
         }
     }
 
     img {
         max-width: 100%;
-        max-height: 60px;
+        max-height: 70px;
         object-fit: contain;
         transition: all 0.3s ease;
-        filter: brightness(0.85);
     }
 
     .logoName {
-        color: #c0b596;
+        color: #555;
         font-size: 13px;
         font-weight: 500;
         text-align: center;
@@ -3596,7 +3609,7 @@ text-align: center;
     .btnStyle {
         background: transparent;
         border: 1px solid #c0b596;
-        color: #c0b596;
+        color: #151a30;
         padding: 12px 35px;
         font-size: 14px;
         text-transform: uppercase;
@@ -3606,7 +3619,7 @@ text-align: center;
 
         &:hover {
             background: #c0b596;
-            color: #151a30;
+            color: #fff;
         }
     }
 }
@@ -3851,6 +3864,28 @@ text-align: center;
 .awarenessArea {
     padding: 100px 0;
     background: #f5f5f5;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -30%;
+        transform: translateY(-50%);
+        width: 60%;
+        height: 90%;
+        background: url('/images/logo/arbex.png') no-repeat center center;
+        background-size: contain;
+        opacity: 0.06;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
+    }
 
     .awarenessItem {
         position: relative;
@@ -4088,6 +4123,9 @@ text-align: center;
         margin-bottom: 30px;
         border: 1px solid #eee;
         transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
 
         &:hover {
             background: #151a30;
@@ -4139,6 +4177,28 @@ text-align: center;
 .contactSectionArea {
     padding: 100px 0;
     background: #fff;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -30%;
+        transform: translateY(-50%);
+        width: 60%;
+        height: 90%;
+        background: url('/images/logo/arbex.png') no-repeat center center;
+        background-size: contain;
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
+    }
 
     .contactUsInfo {
         padding-right: 30px;

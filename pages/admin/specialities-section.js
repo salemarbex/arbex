@@ -30,15 +30,16 @@ import { supabase } from '../../lib/supabase'
 import { toast } from 'react-toastify'
 
 const ICON_OPTIONS = [
-    { value: 'fi flaticon-parents', label: 'Parents / Family' },
-    { value: 'fi flaticon-wounded', label: 'Wounded / Injury' },
-    { value: 'fi flaticon-employee', label: 'Employee / Business' },
-    { value: 'fi flaticon-thief', label: 'Thief / Criminal' },
-    { value: 'fi flaticon-university-graduate-hat', label: 'Graduate Hat / Education' },
-    { value: 'fi flaticon-house', label: 'House / Real Estate' },
-    { value: 'fi flaticon-network', label: 'Network' },
-    { value: 'fi flaticon-scale', label: 'Scale / Justice' },
-    { value: 'fi flaticon-lawyer', label: 'Lawyer' },
+    { value: 'fa fa-users', label: 'Family / Group' },
+    { value: 'fa fa-heartbeat', label: 'Heartbeat / Injury' },
+    { value: 'fa fa-briefcase', label: 'Briefcase / Business' },
+    { value: 'fa fa-gavel', label: 'Gavel / Criminal' },
+    { value: 'fa fa-graduation-cap', label: 'Graduation Cap / Education' },
+    { value: 'fa fa-building', label: 'Building / Real Estate' },
+    { value: 'fa fa-balance-scale', label: 'Balance Scale / Justice' },
+    { value: 'fa fa-university', label: 'University / Institution' },
+    { value: 'fa fa-shield', label: 'Shield / Protection' },
+    { value: 'fa fa-handshake-o', label: 'Handshake / Agreement' },
 ]
 
 const SpecialitiesSectionAdmin = () => {
@@ -59,7 +60,7 @@ const SpecialitiesSectionAdmin = () => {
 
     // Card form data
     const [formData, setFormData] = useState({
-        icon: 'fi flaticon-scale',
+        icon: 'fa fa-balance-scale',
         title: '',
         content: '',
         title_ar: '',

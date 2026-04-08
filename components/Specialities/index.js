@@ -5,13 +5,31 @@ import { useLanguage } from '../../lib/LanguageContext'
 import { supabase } from '../../lib/supabase'
 
 const defaultServices = [
-    { icon: "fi flaticon-parents", title: 'Family Law', content: 'It is a long established fact that a reader will be distracted by the readable content of ', id: 1 },
-    { icon: "fi flaticon-wounded", title: 'Personal Injury', content: 'It is a long established fact that a reader will be distracted by the readable content of ', id: 2 },
-    { icon: "fi flaticon-employee", title: 'Business Law', content: 'It is a long established fact that a reader will be distracted by the readable content of ', id: 3 },
-    { icon: "fi flaticon-thief", title: 'Criminal Law', content: 'It is a long established fact that a reader will be distracted by the readable content of ', id: 4 },
-    { icon: "fi flaticon-university-graduate-hat", title: 'Education Law', content: 'It is a long established fact that a reader will be distracted by the readable content of ', id: 5 },
-    { icon: "fi flaticon-house", title: 'Real Estate Law', content: 'It is a long established fact that a reader will be distracted by the readable content of ', id: 6 },
+    { icon: "fa fa-balance-scale", title: 'Local and International Arbitration', content: 'We provide expert arbitration services in commercial, engineering, and technical disputes.', id: 1 },
+    { icon: "fa fa-file-text-o", title: 'Technical Reports & Expert Opinions', content: 'We prepare comprehensive technical reports and expert opinions to support legal cases.', id: 2 },
+    { icon: "fa fa-handshake-o", title: 'Mediation & Dispute Resolution', content: 'Our mediation services help parties reach amicable settlements through structured negotiation.', id: 3 },
+    { icon: "fa fa-briefcase", title: 'Negotiation & Technical Representation', content: 'We represent clients in technical negotiations with expertise and professionalism.', id: 4 },
+    { icon: "fa fa-cogs", title: 'Technical Consultancy', content: 'We offer specialized technical consultancy for contracts and projects.', id: 5 },
+    { icon: "fa fa-tasks", title: 'Project Management & Evaluation', content: 'Our team manages and evaluates technical projects from inception to completion.', id: 6 },
+    { icon: "fa fa-shield", title: 'IT Audit', content: 'We conduct thorough IT audits to assess system integrity and security.', id: 7 },
+    { icon: "fa fa-sitemap", title: 'Systems & Infrastructure Analysis', content: 'We analyze organizational systems and infrastructure to optimize performance.', id: 8 },
+    { icon: "fa fa-gavel", title: 'Judicial & Committee Support', content: 'We provide impartial expert opinions to support judicial authorities.', id: 9 },
 ]
+
+// Map icon based on title keywords (works for both English and Arabic titles)
+const getIconForTitle = (title, titleAr, fallbackIcon) => {
+    const text = ((title || '') + ' ' + (titleAr || '')).toLowerCase()
+    if (text.includes('arbitration') || text.includes('تحكيم')) return 'fa fa-balance-scale'
+    if (text.includes('technical report') || text.includes('expert opinion') || text.includes('تقارير') || text.includes('آراء')) return 'fa fa-file-text-o'
+    if (text.includes('mediation') || text.includes('dispute resolution') || text.includes('وساطة') || text.includes('نزاعات')) return 'fa fa-handshake-o'
+    if (text.includes('negotiation') || text.includes('representation') || text.includes('تفاوض') || text.includes('تمثيل')) return 'fa fa-briefcase'
+    if (text.includes('consultancy') || text.includes('استشار')) return 'fa fa-cogs'
+    if (text.includes('project management') || text.includes('evaluation') || text.includes('إدارة مشاريع') || text.includes('تقييم')) return 'fa fa-tasks'
+    if (text.includes('it audit') || text.includes('تدقيق')) return 'fa fa-shield'
+    if (text.includes('systems') || text.includes('infrastructure') || text.includes('أنظمة') || text.includes('بنية')) return 'fa fa-sitemap'
+    if (text.includes('judicial') || text.includes('committee') || text.includes('قضائي') || text.includes('لجان')) return 'fa fa-gavel'
+    return fallbackIcon || 'fa fa-balance-scale'
+}
 
 const serviceKeys = ['familyLaw', 'personalInjury', 'businessLaw', 'criminalLaw', 'educationLaw', 'realEstateLaw'];
 
@@ -50,6 +68,7 @@ const Specialities = ({ className = '', title, subTitle }) => {
     const displayServices = services.length > 0
         ? services.map(s => ({
             ...s,
+            icon: getIconForTitle(s.title, s.title_ar, s.icon),
             title: isArabic ? (s.title_ar || s.title) : s.title,
             content: isArabic ? (s.content_ar || s.content) : s.content,
         }))

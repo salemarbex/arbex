@@ -384,6 +384,11 @@ body.rtl .ourValuesArea::before {
 }
 
 /* ===== Awareness / Portfolio RTL ===== */
+body.rtl .awarenessArea::after {
+    right: auto;
+    left: -30%;
+}
+
 body.rtl .portfolioArea .container {
     direction: rtl;
 }
@@ -420,6 +425,11 @@ body.rtl .clientsSection {
 /* direction: rtl naturally flips Grid items: Info→right, Form→left (mirror of English) */
 body.rtl .contactSectionArea {
     direction: rtl;
+}
+
+body.rtl .contactSectionArea::after {
+    right: auto;
+    left: -30%;
 }
 
 body.rtl .contactUsInfo {
@@ -698,6 +708,11 @@ body.rtl .newsletterContent {
 /* ===== Contact Area (Parallax) RTL ===== */
 body.rtl .contactArea {
     direction: rtl;
+}
+
+body.rtl .contactArea::after {
+    right: auto;
+    left: -30%;
 }
 
 body.rtl .contactInfo {

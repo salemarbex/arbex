@@ -104,7 +104,7 @@ const Awareness = ({ className = '' }) => {
     }
 
     return (
-        <Grid id="awareness" className={`portfolioArea portfolioAreaStyleTwo ${className}`}>
+        <Grid id="awareness" className={`portfolioArea portfolioAreaStyleTwo awarenessArea ${className}`}>
             <Grid container className="container">
                 <Grid item xs={12}>
                     <SectionTitle

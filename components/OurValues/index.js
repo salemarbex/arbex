@@ -27,7 +27,6 @@ const OurValues = ({ className = '' }) => {
                     <div className="ourValuesWrapper">
                         {values.map((value, index) => (
                             <div className="valueCard" key={index}>
-                                <div className="valueNumber">{String(index + 1).padStart(2, '0')}</div>
                                 <h3 className="valueTitle">{isRTL ? value.ar : value.en}</h3>
                                 <div className="valueUnderline"></div>
                             </div>

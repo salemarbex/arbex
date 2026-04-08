@@ -7,7 +7,7 @@ import { useLanguage } from '../../lib/LanguageContext'
 const CLIENTS_PER_PAGE = 8
 
 const Clients = ({ className = '' }) => {
-    const { t } = useLanguage();
+    const { t, isRTL } = useLanguage();
     const [allClients, setAllClients] = useState([])
     const [visibleCount, setVisibleCount] = useState(CLIENTS_PER_PAGE)
     const [loading, setLoading] = useState(true)
@@ -75,17 +75,20 @@ const Clients = ({ className = '' }) => {
                         {/* Hover glow overlay */}
                         <div className="clients-grid__glow" />
                         <div ref={gridRef} className="clients-grid">
-                            {visibleClients.map((client) => (
+                            {visibleClients.map((client) => {
+                                const displayName = isRTL ? (client.name_ar || client.name) : client.name
+                                return (
                                 <div key={client.id} className="clients-grid__cell">
                                     <div className="clients-grid__logo-wrap">
                                         <img
                                             src={client.logo_url}
-                                            alt={client.name}
+                                            alt={displayName}
                                         />
-                                        <span className="logoName">{client.name}</span>
+                                        {displayName && <span className="logoName">{displayName}</span>}
                                     </div>
                                 </div>
-                            ))}
+                                )
+                            })}
                         </div>
                         {hasMore && (
                             <div className="loadMoreWrapper">

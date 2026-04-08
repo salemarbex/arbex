@@ -7,7 +7,7 @@ import { useLanguage } from '../../lib/LanguageContext'
 const LOGOS_PER_PAGE = 8
 
 const Accreditation = ({ className = '' }) => {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const [allLogos, setAllLogos] = useState([])
   const [visibleCount, setVisibleCount] = useState(LOGOS_PER_PAGE)
   const [loading, setLoading] = useState(true)
@@ -80,17 +80,20 @@ const Accreditation = ({ className = '' }) => {
               {/* Hover glow overlay */}
               <div className="accreditation-grid__glow" />
               <div ref={gridRef} className="accreditation-grid">
-                {visibleLogos.map((logo) => (
+                {visibleLogos.map((logo) => {
+                  const displayName = isRTL ? (logo.name_ar || logo.name) : logo.name
+                  return (
                   <div key={logo.id} className="accreditation-grid__cell">
                     <div className="accreditation-grid__logo-wrap">
                       <img
                         src={logo.logo_url}
-                        alt={logo.name}
+                        alt={displayName}
                       />
-                      <span className="logoName">{logo.name}</span>
+                      {displayName && <span className="logoName">{displayName}</span>}
                     </div>
                   </div>
-                ))}
+                  )
+                })}
               </div>
               {hasMore && (
                 <div className="loadMoreWrapper">

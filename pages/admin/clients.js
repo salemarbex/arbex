@@ -36,6 +36,7 @@ const ClientsAdmin = () => {
     const [selectedLogo, setSelectedLogo] = useState(null)
     const [formData, setFormData] = useState({
         name: '',
+        name_ar: '',
         logo_url: ''
     })
     const [logoFile, setLogoFile] = useState(null)
@@ -68,12 +69,14 @@ const ClientsAdmin = () => {
             setSelectedLogo(logo)
             setFormData({
                 name: logo.name,
+                name_ar: logo.name_ar || '',
                 logo_url: logo.logo_url
             })
         } else {
             setSelectedLogo(null)
             setFormData({
                 name: '',
+                name_ar: '',
                 logo_url: ''
             })
         }
@@ -85,7 +88,7 @@ const ClientsAdmin = () => {
     const handleCloseDialog = () => {
         setDialogOpen(false)
         setSelectedLogo(null)
-        setFormData({ name: '', logo_url: '' })
+        setFormData({ name: '', name_ar: '', logo_url: '' })
         setLogoFile(null)
         setLogoPreview(null)
     }
@@ -131,6 +134,7 @@ const ClientsAdmin = () => {
 
             const logoData = {
                 name: formData.name,
+                name_ar: formData.name_ar || null,
                 logo_url: logoUrl,
                 display_order: selectedLogo?.display_order || logos.length
             }
@@ -270,20 +274,21 @@ const ClientsAdmin = () => {
                                 <TableRow>
                                     <TableCell>Order</TableCell>
                                     <TableCell>Logo</TableCell>
-                                    <TableCell>Name</TableCell>
+                                    <TableCell>Name (EN)</TableCell>
+                                    <TableCell>Name (AR)</TableCell>
                                     <TableCell align="right">Actions</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {loading ? (
                                     <TableRow>
-                                        <TableCell colSpan={4} align="center">
+                                            <TableCell colSpan={5} align="center">
                                             <CircularProgress size={24} style={{ color: '#c0b596' }} />
                                         </TableCell>
                                     </TableRow>
                                 ) : logos.length === 0 ? (
                                     <TableRow>
-                                        <TableCell colSpan={4} align="center">
+                                        <TableCell colSpan={5} align="center">
                                             No client logos found. Add your first client!
                                         </TableCell>
                                     </TableRow>
@@ -316,6 +321,7 @@ const ClientsAdmin = () => {
                                                 />
                                             </TableCell>
                                             <TableCell>{logo.name}</TableCell>
+                                            <TableCell dir="rtl">{logo.name_ar || '—'}</TableCell>
                                             <TableCell align="right">
                                                 <IconButton 
                                                     onClick={() => handleOpenDialog(logo)}
@@ -347,12 +353,22 @@ const ClientsAdmin = () => {
                                 <Grid container spacing={3}>
                                     <Grid item xs={12}>
                                         <TextField
-                                            label="Client Name"
+                                            label="Client Name (English)"
                                             name="name"
                                             value={formData.name}
                                             onChange={handleInputChange}
                                             fullWidth
                                             required
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            label="اسم العميل (عربي) — Client Name (Arabic)"
+                                            name="name_ar"
+                                            value={formData.name_ar}
+                                            onChange={handleInputChange}
+                                            fullWidth
+                                            inputProps={{ dir: 'rtl' }}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
