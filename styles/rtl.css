@@ -11,20 +11,10 @@
    explicit RTL overrides since they use absolute left/right values.
    ============================================== */
 
-/* ===== Arabic Font Families ===== */
+/* ===== Arabic RTL Layout ===== */
 body.rtl {
-    font-family: 'Cairo', 'Open Sans', sans-serif;
     direction: rtl;
     text-align: right;
-}
-
-body.rtl h1,
-body.rtl h2,
-body.rtl h3,
-body.rtl h4,
-body.rtl h5,
-body.rtl h6 {
-    font-family: 'Tajawal', 'Playfair Display', serif;
 }
 
 /* ===== Phone Numbers: always LTR ===== */
@@ -394,12 +384,12 @@ body.rtl .portfolioArea .container {
 }
 
 body.rtl .portfolioContent {
-    text-align: right;
+    text-align: center;
 }
 
 body.rtl .portfolioContent h3,
 body.rtl .portfolioContent p {
-    text-align: right;
+    text-align: center;
 }
 
 /* ===== Awareness Modal RTL ===== */
