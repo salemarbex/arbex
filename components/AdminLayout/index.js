@@ -26,6 +26,7 @@ import VerifiedIcon from '@mui/icons-material/Verified'
 import BusinessIcon from '@mui/icons-material/Business'
 import ContactMailIcon from '@mui/icons-material/ContactMail'
 import VisibilityIcon from '@mui/icons-material/Visibility'
+import ToggleOnIcon from '@mui/icons-material/ToggleOn'
 import GavelIcon from '@mui/icons-material/Gavel'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
@@ -72,6 +73,7 @@ const AdminLayout = ({ children, title = 'Dashboard' }) => {
     const mainMenuItems = [
         { text: 'Dashboard', icon: <DashboardIcon />, path: '/admin/dashboard' },
         { text: 'Awareness', icon: <CampaignIcon />, path: '/admin/awareness' },
+        { text: 'Section Visibility', icon: <ToggleOnIcon />, path: '/admin/section-visibility' },
     ]
 
     const sectionMenuItems = [

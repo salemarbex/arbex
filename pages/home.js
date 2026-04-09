@@ -17,9 +17,11 @@ import Clients from '../components/Clients'
 import ContactSection from '../components/ContactSection'
 import GoogleMap from '../components/GoogleMap'
 import { useLanguage } from '../lib/LanguageContext'
+import { useSectionVisibility } from '../lib/useSectionVisibility'
 
 const Home = () => {
     const { t } = useLanguage();
+    const { isSectionVisible } = useSectionVisibility();
     
     return (
         <Fragment>
@@ -40,43 +42,47 @@ const Home = () => {
             </header>
             
             {/* Home Section with Video */}
-            <HeroVideo />
+            {isSectionVisible('hero') && <HeroVideo />}
             
             {/* About Us Section - Fetches from Supabase */}
+            {isSectionVisible('about') && (
             <About
                 fetchFromSupabase={true}
                 hideButton={true}
                 hideSignature={true}
             />
+            )}
             
             {/* Consultant Section - Fetches from Supabase */}
+            {isSectionVisible('consultant') && (
             <Consultant
                 fetchFromSupabase={true}
             />
+            )}
             
             {/* Specialities Section */}
-            <Specialities />
+            {isSectionVisible('specialities') && <Specialities />}
             
             {/* Accreditation Section */}
-            <Accreditation />
+            {isSectionVisible('accreditation') && <Accreditation />}
             
             {/* Vision & Mission Section */}
-            <VisionMission />
+            {isSectionVisible('vision') && <VisionMission />}
             
             {/* Our Values Section */}
-            <OurValues />
+            {isSectionVisible('values') && <OurValues />}
             
             {/* Awareness Section */}
-            <Awareness />
+            {isSectionVisible('awareness') && <Awareness />}
             
             {/* Clients Section */}
-            <Clients />
+            {isSectionVisible('clients') && <Clients />}
             
             {/* Contact Us Section */}
-            <ContactSection />
+            {isSectionVisible('contact') && <ContactSection />}
             
             {/* Google Maps */}
-            <GoogleMap />
+            {isSectionVisible('map') && <GoogleMap />}
         </Fragment>
     )
 }

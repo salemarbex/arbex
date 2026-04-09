@@ -2,30 +2,38 @@ import React from 'react'
 import Link from 'next/link'
 import { Grid } from '@mui/material'
 import { useLanguage } from '../../lib/LanguageContext'
+import { useSectionVisibility } from '../../lib/useSectionVisibility'
 
 const FooterArea = () => {
     const { t, locale } = useLanguage();
+    const { isSectionVisible } = useSectionVisibility();
     const homePath = locale === 'ar' ? '/ar/home' : '/home';
+
+    const allQuickLinks = [
+        { name: t('nav.home'), route: `${homePath}#home`, visibilityKey: 'hero' },
+        { name: t('nav.about'), route: `${homePath}#about`, visibilityKey: 'about' },
+        { name: t('nav.consultant'), route: `${homePath}#consultant`, visibilityKey: 'consultant' },
+        { name: t('nav.specialities'), route: `${homePath}#specialities`, visibilityKey: 'specialities' },
+        { name: t('nav.accreditation'), route: `${homePath}#accreditation`, visibilityKey: 'accreditation' },
+        { name: t('nav.clients'), route: `${homePath}#clients`, visibilityKey: 'clients' },
+    ];
+
+    const allMoreLinks = [
+        { name: t('nav.vision'), route: `${homePath}#vision`, visibilityKey: 'vision' },
+        { name: t('nav.awareness'), route: `${homePath}#awareness`, visibilityKey: 'awareness' },
+        { name: t('nav.contact'), route: `${homePath}#contact`, visibilityKey: 'contact' },
+    ];
 
     const footerLinks = [
         {
-            title: t('footer.quickLink'), menus: [
-                { name: t('nav.home'), route: `${homePath}#home` },
-                { name: t('nav.about'), route: `${homePath}#about` },
-                { name: t('nav.consultant'), route: `${homePath}#consultant` },
-                { name: t('nav.specialities'), route: `${homePath}#specialities` },
-                { name: t('nav.accreditation'), route: `${homePath}#accreditation` },
-                { name: t('nav.clients'), route: `${homePath}#clients` },
-            ]
+            title: t('footer.quickLink'),
+            menus: allQuickLinks.filter(item => isSectionVisible(item.visibilityKey))
         },
         {
-            title: t('footer.moreLinks'), menus: [
-                { name: t('nav.vision'), route: `${homePath}#vision` },
-                { name: t('nav.awareness'), route: `${homePath}#awareness` },
-                { name: t('nav.contact'), route: `${homePath}#contact` },
-            ]
+            title: t('footer.moreLinks'),
+            menus: allMoreLinks.filter(item => isSectionVisible(item.visibilityKey))
         },
-    ];
+    ].filter(group => group.menus.length > 0);
 
     return (
         <footer className="footerArea">

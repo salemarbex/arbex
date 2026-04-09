@@ -19,6 +19,7 @@ import "../styles/rtl.css";
 import { Fragment, useEffect } from "react";
 import FooterArea from "../components/FooterArea";
 import { LanguageProvider } from "../lib/LanguageContext";
+import { SectionVisibilityProvider } from "../lib/useSectionVisibility";
 
 
 function MyApp({ Component, pageProps }) {
@@ -42,6 +43,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <LanguageProvider>
+      <SectionVisibilityProvider>
       <Fragment>
         <Head>
           <title>{isArabic ? 'آربيكس - إستشارات تقنية' : 'ARBEX Law - IT Consultancy'}</title>
@@ -51,6 +53,7 @@ function MyApp({ Component, pageProps }) {
         <ToastContainer position={isArabic ? 'top-left' : 'top-right'} />
         {!isAdminPage && <FooterArea />}
       </Fragment>
+      </SectionVisibilityProvider>
     </LanguageProvider>
   )
 }

@@ -17,9 +17,11 @@ import Clients from '../../components/Clients'
 import ContactSection from '../../components/ContactSection'
 import GoogleMap from '../../components/GoogleMap'
 import { useLanguage } from '../../lib/LanguageContext'
+import { useSectionVisibility } from '../../lib/useSectionVisibility'
 
 const HomeArabic = () => {
     const { t } = useLanguage();
+    const { isSectionVisible } = useSectionVisibility();
     
     return (
         <Fragment>
@@ -40,43 +42,47 @@ const HomeArabic = () => {
             </header>
             
             {/* قسم الصفحة الرئيسية مع الفيديو */}
-            <HeroVideo />
+            {isSectionVisible('hero') && <HeroVideo />}
             
             {/* قسم من نحن - يجلب من Supabase */}
+            {isSectionVisible('about') && (
             <About
                 fetchFromSupabase={true}
                 hideButton={true}
                 hideSignature={true}
             />
+            )}
             
             {/* قسم المستشار - يجلب من Supabase */}
+            {isSectionVisible('consultant') && (
             <Consultant
                 fetchFromSupabase={true}
             />
+            )}
             
             {/* قسم التخصصات */}
-            <Specialities />
+            {isSectionVisible('specialities') && <Specialities />}
             
             {/* قسم الاعتمادات */}
-            <Accreditation />
+            {isSectionVisible('accreditation') && <Accreditation />}
             
             {/* قسم الرؤية والمهمة */}
-            <VisionMission />
+            {isSectionVisible('vision') && <VisionMission />}
             
             {/* قسم قيمنا */}
-            <OurValues />
+            {isSectionVisible('values') && <OurValues />}
             
             {/* قسم التوعية */}
-            <Awareness />
+            {isSectionVisible('awareness') && <Awareness />}
             
             {/* قسم العملاء */}
-            <Clients />
+            {isSectionVisible('clients') && <Clients />}
             
             {/* قسم اتصل بنا */}
-            <ContactSection />
+            {isSectionVisible('contact') && <ContactSection />}
             
             {/* خريطة جوجل */}
-            <GoogleMap />
+            {isSectionVisible('map') && <GoogleMap />}
         </Fragment>
     )
 }

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from "next/router";
 import SearchIcon from '@mui/icons-material/Search';
 import { useLanguage } from '../../lib/LanguageContext';
+import { useSectionVisibility } from '../../lib/useSectionVisibility';
 
 const HeaderBottom = props => {
     const [search, setSearch] = useState()
@@ -11,6 +12,7 @@ const HeaderBottom = props => {
     const [trigger, setTrigger] = useState(false)
     const [isScrolled, setIsScrolled] = useState(false)
     const { t, locale, switchLanguage } = useLanguage();
+    const { isSectionVisible } = useSectionVisibility();
     
     const homePath = locale === 'ar' ? '/ar/home' : '/home';
     
@@ -45,16 +47,18 @@ const HeaderBottom = props => {
     };
 
     const menuItems = [
-        { id: 'home', label: t('nav.home') },
-        { id: 'about', label: t('nav.about') },
-        { id: 'consultant', label: t('nav.consultant') },
-        { id: 'specialities', label: t('nav.specialities') },
-        { id: 'accreditation', label: t('nav.accreditation') },
-        { id: 'clients', label: t('nav.clients') },
-        { id: 'vision', label: t('nav.vision') },
-        { id: 'awareness', label: t('nav.awareness') },
-        { id: 'contact', label: t('nav.contact') },
+        { id: 'home', label: t('nav.home'), visibilityKey: 'hero' },
+        { id: 'about', label: t('nav.about'), visibilityKey: 'about' },
+        { id: 'consultant', label: t('nav.consultant'), visibilityKey: 'consultant' },
+        { id: 'specialities', label: t('nav.specialities'), visibilityKey: 'specialities' },
+        { id: 'accreditation', label: t('nav.accreditation'), visibilityKey: 'accreditation' },
+        { id: 'clients', label: t('nav.clients'), visibilityKey: 'clients' },
+        { id: 'vision', label: t('nav.vision'), visibilityKey: 'vision' },
+        { id: 'awareness', label: t('nav.awareness'), visibilityKey: 'awareness' },
+        { id: 'contact', label: t('nav.contact'), visibilityKey: 'contact' },
     ];
+
+    const visibleMenuItems = menuItems.filter(item => isSectionVisible(item.visibilityKey));
 
     return (
         <Fragment>
@@ -77,7 +81,7 @@ const HeaderBottom = props => {
                             "responsiveWrapper active" :
                             "responsiveWrapper"}>
                         <ul className="mainMenuWrap">
-                            {menuItems.map((item) => (
+                            {visibleMenuItems.map((item) => (
                                 <li key={item.id}>
                                     <a href={`${homePath}#${item.id}`} onClick={(e) => scrollToSection(e, item.id)}>
                                         {item.label}
