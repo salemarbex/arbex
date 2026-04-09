@@ -7,26 +7,26 @@ import { supabase } from '../../lib/supabase'
 const VisionMission = ({ className = '', title, subTitle }) => {
     const { t, isRTL } = useLanguage();
     const [content, setContent] = useState({
-        section_title: '',
-        section_subtitle: '',
-        vision_title: '',
-        vision_subtitle: '',
-        vision_paragraph1: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at',
-        vision_paragraph2: 'and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum',
-        mission_title: '',
-        mission_subtitle: '',
-        mission_paragraph1: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at',
-        mission_paragraph2: 'and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum',
-        section_title_ar: '',
-        section_subtitle_ar: '',
-        vision_title_ar: '',
-        vision_subtitle_ar: '',
-        vision_paragraph1_ar: '',
-        vision_paragraph2_ar: '',
-        mission_title_ar: '',
-        mission_subtitle_ar: '',
-        mission_paragraph1_ar: '',
-        mission_paragraph2_ar: ''
+        section_title: null,
+        section_subtitle: null,
+        vision_title: null,
+        vision_subtitle: null,
+        vision_paragraph1: null,
+        vision_paragraph2: null,
+        mission_title: null,
+        mission_subtitle: null,
+        mission_paragraph1: null,
+        mission_paragraph2: null,
+        section_title_ar: null,
+        section_subtitle_ar: null,
+        vision_title_ar: null,
+        vision_subtitle_ar: null,
+        vision_paragraph1_ar: null,
+        vision_paragraph2_ar: null,
+        mission_title_ar: null,
+        mission_subtitle_ar: null,
+        mission_paragraph1_ar: null,
+        mission_paragraph2_ar: null
     })
 
     useEffect(() => {
@@ -54,21 +54,33 @@ const VisionMission = ({ className = '', title, subTitle }) => {
         }
     }
 
-    const displaySectionTitle = (isRTL && content.section_title_ar) || content.section_title || title || t('vision.title')
-    const displaySectionSubtitle = (isRTL && content.section_subtitle_ar) || content.section_subtitle || subTitle || t('vision.subtitle')
-    const displayVisionTitle = (isRTL && content.vision_title_ar) || content.vision_title || t('vision.visionTitle')
-    const displayVisionSubtitle = (isRTL && content.vision_subtitle_ar) || content.vision_subtitle || t('vision.visionSubtitle')
-    const displayMissionTitle = (isRTL && content.mission_title_ar) || content.mission_title || t('vision.missionTitle')
-    const displayMissionSubtitle = (isRTL && content.mission_subtitle_ar) || content.mission_subtitle || t('vision.missionSubtitle')
+    // Helper: use DB value if it exists (even empty string), only fall back to translation if DB field was never set
+    const dbField = (key) => content[key] !== undefined && content[key] !== null ? content[key] : null
+    const getDisplay = (arKey, enKey, fallback) => {
+        if (isRTL) {
+            const arVal = dbField(arKey)
+            if (arVal !== null) return arVal
+        }
+        const enVal = dbField(enKey)
+        if (enVal !== null) return enVal
+        return fallback
+    }
+
+    const displaySectionTitle = getDisplay('section_title_ar', 'section_title', title || t('vision.title'))
+    const displaySectionSubtitle = getDisplay('section_subtitle_ar', 'section_subtitle', subTitle || t('vision.subtitle'))
+    const displayVisionTitle = getDisplay('vision_title_ar', 'vision_title', t('vision.visionTitle'))
+    const displayVisionSubtitle = getDisplay('vision_subtitle_ar', 'vision_subtitle', t('vision.visionSubtitle'))
+    const displayMissionTitle = getDisplay('mission_title_ar', 'mission_title', t('vision.missionTitle'))
+    const displayMissionSubtitle = getDisplay('mission_subtitle_ar', 'mission_subtitle', t('vision.missionSubtitle'))
 
     const visionText = [
-        (isRTL && content.vision_paragraph1_ar) || content.vision_paragraph1,
-        (isRTL && content.vision_paragraph2_ar) || content.vision_paragraph2
+        getDisplay('vision_paragraph1_ar', 'vision_paragraph1', ''),
+        getDisplay('vision_paragraph2_ar', 'vision_paragraph2', '')
     ].filter(p => p)
 
     const missionText = [
-        (isRTL && content.mission_paragraph1_ar) || content.mission_paragraph1,
-        (isRTL && content.mission_paragraph2_ar) || content.mission_paragraph2
+        getDisplay('mission_paragraph1_ar', 'mission_paragraph1', ''),
+        getDisplay('mission_paragraph2_ar', 'mission_paragraph2', '')
     ].filter(p => p)
 
     return (
