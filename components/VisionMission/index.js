@@ -97,8 +97,8 @@ const VisionMission = ({ className = '', title, subTitle }) => {
                         {/* Vision Section */}
                         <div className="visionSection">
                             <div className="visionContent">
-                                <span className="subtitle">{displayVisionTitle}</span>
-                                <h2>{displayVisionSubtitle}</h2>
+                                {displayVisionTitle && <span className="subtitle">{displayVisionTitle}</span>}
+                                {displayVisionSubtitle && <h2>{displayVisionSubtitle}</h2>}
                                 {visionText.map((text, index) => (
                                     <p key={index}>{text}</p>
                                 ))}
@@ -113,8 +113,8 @@ const VisionMission = ({ className = '', title, subTitle }) => {
                         {/* Mission Section */}
                         <div className="missionSection">
                             <div className="missionContent">
-                                <span className="subtitle">{displayMissionTitle}</span>
-                                <h2>{displayMissionSubtitle}</h2>
+                                {displayMissionTitle && <span className="subtitle">{displayMissionTitle}</span>}
+                                {displayMissionSubtitle && <h2>{displayMissionSubtitle}</h2>}
                                 {missionText.map((text, index) => (
                                     <p key={index}>{text}</p>
                                 ))}
