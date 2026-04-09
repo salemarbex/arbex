@@ -185,6 +185,7 @@ body.rtl .mainMenuWrap li:last-child {
 
 body.rtl .mainMenuWrap > li > a {
     text-align: right;
+    font-size: 15px !important;
 }
 
 body.rtl .mainMenuWrap li ul.subMenu {

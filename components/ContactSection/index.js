@@ -107,7 +107,6 @@ const ContactSection = ({ className = '' }) => {
                 <Grid item md={5} xs={12}>
                     <Grid className="contactUsInfo">
                         <h3>{t('contact.title')}</h3>
-                        <p>{t('contact.description')}</p>
                         <h4>{t('contact.address')}</h4>
                         <span>{t('contact.addressLine1')}</span>
                         <span>{t('contact.addressLine2')}</span>
