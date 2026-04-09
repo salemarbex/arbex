@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps }) {
       <SectionVisibilityProvider>
       <Fragment>
         <Head>
-          <title>{isArabic ? 'المحكم والخبير التقني - محمد سالم' : 'ARBEX Law - IT Consultancy'}</title>
+          <title>{isArabic ? 'المحكم والخبير التقني - محمد سالم' : 'ARBEX - IT Consultancy'}</title>
         </Head>
         
         <Component {...pageProps} />
