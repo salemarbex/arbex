@@ -9,40 +9,28 @@ const FooterArea = () => {
     const { isSectionVisible } = useSectionVisibility();
     const homePath = locale === 'ar' ? '/ar/home' : '/home';
 
-    const allQuickLinks = [
+    const allLinks = [
         { name: t('nav.home'), route: `${homePath}#home`, visibilityKey: 'hero' },
         { name: t('nav.about'), route: `${homePath}#about`, visibilityKey: 'about' },
         { name: t('nav.consultant'), route: `${homePath}#consultant`, visibilityKey: 'consultant' },
         { name: t('nav.specialities'), route: `${homePath}#specialities`, visibilityKey: 'specialities' },
         { name: t('nav.accreditation'), route: `${homePath}#accreditation`, visibilityKey: 'accreditation' },
         { name: t('nav.clients'), route: `${homePath}#clients`, visibilityKey: 'clients' },
-    ];
-
-    const allMoreLinks = [
         { name: t('nav.vision'), route: `${homePath}#vision`, visibilityKey: 'vision' },
         { name: t('nav.awareness'), route: `${homePath}#awareness`, visibilityKey: 'awareness' },
         { name: t('nav.contact'), route: `${homePath}#contact`, visibilityKey: 'contact' },
     ];
 
-    const footerLinks = [
-        {
-            title: t('footer.quickLink'),
-            menus: allQuickLinks.filter(item => isSectionVisible(item.visibilityKey))
-        },
-        {
-            title: t('footer.moreLinks'),
-            menus: allMoreLinks.filter(item => isSectionVisible(item.visibilityKey))
-        },
-    ].filter(group => group.menus.length > 0);
+    const quickLinks = allLinks.filter(item => isSectionVisible(item.visibilityKey));
 
     return (
         <footer className="footerArea">
             <Grid className="footerTopArea">
                 <Grid
                     container
-                    spacing={3}
+                    spacing={5}
                     className="container">
-                    <Grid item lg={3} sm={6} xs={12}>
+                    <Grid item lg={4} sm={6} xs={12}>
                         <Grid className="footerLogo">
                             <Link href={homePath}>
                                 <img src="/images/logo/arbex.png" alt="Arbex Law" />
@@ -50,28 +38,28 @@ const FooterArea = () => {
                             <p>{t('footer.description')}</p>
                         </Grid>
                     </Grid>
-                    {footerLinks.map((menu, i) => (
-                        <Grid key={i} item lg={3} sm={6} xs={12}>
+                    {quickLinks.length > 0 && (
+                        <Grid item lg={4} sm={6} xs={12}>
                             <div className="footerWrap">
-                                <h3>{menu.title}</h3>
+                                <h3>{t('footer.quickLink')}</h3>
                                 <ul>
-                                    {menu.menus.map((item, i) => (
+                                    {quickLinks.map((item, i) => (
                                         <li key={i}><Link href={`${item.route}`}>{item.name}</Link></li>
                                     ))}
                                 </ul>
                             </div>
                         </Grid>
-                    ))}
-                    <Grid item lg={3} sm={6} xs={12}>
+                    )}
+                    <Grid item lg={4} sm={6} xs={12}>
                         <div className="footerWrap footerContact">
                             <h3>{t('footer.contactUs')}</h3>
                             <ul>
-                                <li className="addressText">{t('footer.headOffice')}</li>
-                                <li className="addressText">{t('contact.addressLine1')}</li>
-                                <li className="addressText">{t('contact.addressLine2')}</li>
-                                <li className="addressText">{t('contact.addressLine3')}</li>
+                                <li className="addressText"><a href="https://maps.google.com/?q=Zone+32,+Street+958,+Building+52,+Doha,+Qatar" target="_blank" rel="noopener noreferrer">{t('footer.headOffice')}</a></li>
+                                <li className="addressText"><a href="https://maps.google.com/?q=Zone+32,+Street+958,+Building+52,+Doha,+Qatar" target="_blank" rel="noopener noreferrer">{t('contact.addressLine1')}</a></li>
+                                <li className="addressText"><a href="https://maps.google.com/?q=Zone+32,+Street+958,+Building+52,+Doha,+Qatar" target="_blank" rel="noopener noreferrer">{t('contact.addressLine2')}</a></li>
+                                <li className="addressText"><a href="https://maps.google.com/?q=Zone+32,+Street+958,+Building+52,+Doha,+Qatar" target="_blank" rel="noopener noreferrer">{t('contact.addressLine3')}</a></li>
                                 <li>{t('contact.phone')}: <a href="tel:+97470202010">{t('header.phone')}</a></li>
-                                <li><a href="mailto:info@arbex.law">{t('contact.email')}: info@arbex.law</a></li>
+                                <li>{t('contact.email')}: <a href="mailto:info@arbex.law">info@arbex.law</a></li>
                             </ul>
                         </div>
                     </Grid>

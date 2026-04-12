@@ -11,7 +11,7 @@ const defaultServices = [
     { icon: "fa fa-briefcase", title: 'Negotiation & Technical Representation', content: 'We represent clients in technical negotiations with expertise and professionalism.', id: 4 },
     { icon: "fa fa-cogs", title: 'Technical Consultancy', content: 'We offer specialized technical consultancy for contracts and projects.', id: 5 },
     { icon: "fa fa-tasks", title: 'Project Management & Evaluation', content: 'Our team manages and evaluates technical projects from inception to completion.', id: 6 },
-    { icon: "fa fa-shield", title: 'IT Audit', content: 'We conduct thorough IT audits to assess system integrity and security.', id: 7 },
+    { icon: "fa fa-clipboard", title: 'IT Audit', content: 'We conduct thorough IT audits to assess system integrity and security.', id: 7 },
     { icon: "fa fa-sitemap", title: 'Systems & Infrastructure Analysis', content: 'We analyze organizational systems and infrastructure to optimize performance.', id: 8 },
     { icon: "fa fa-gavel", title: 'Judicial & Committee Support', content: 'We provide impartial expert opinions to support judicial authorities.', id: 9 },
 ]
@@ -25,7 +25,7 @@ const getIconForTitle = (title, titleAr, fallbackIcon) => {
     if (text.includes('negotiation') || text.includes('representation') || text.includes('تفاوض') || text.includes('تمثيل')) return 'fa fa-briefcase'
     if (text.includes('consultancy') || text.includes('استشار')) return 'fa fa-cogs'
     if (text.includes('project management') || text.includes('evaluation') || text.includes('إدارة مشاريع') || text.includes('تقييم')) return 'fa fa-tasks'
-    if (text.includes('it audit') || text.includes('تدقيق')) return 'fa fa-shield'
+    if (text.includes('it audit') || text.includes('تدقيق')) return 'fa fa-clipboard'
     if (text.includes('systems') || text.includes('infrastructure') || text.includes('أنظمة') || text.includes('بنية')) return 'fa fa-sitemap'
     if (text.includes('judicial') || text.includes('committee') || text.includes('قضائي') || text.includes('لجان')) return 'fa fa-gavel'
     return fallbackIcon || 'fa fa-balance-scale'

@@ -109,7 +109,7 @@ body.rtl .headerContact li svg {
 /* --- Top Bar: consult button area --- */
 body.rtl .headerTop .text-right {
     text-align: left !important;
-    padding-left: 15px;
+    padding-left: 27px;
 }
 
 /* --- Logo area --- */
@@ -239,6 +239,10 @@ body.rtl .aboutContent {
     text-align: right;
 }
 
+body.rtl .aboutArea:not(.consultantArea) .aboutContent {
+    transform: translateX(-20px);
+}
+
 body.rtl .aboutContent .subtitle {
     text-align: right;
 }
@@ -252,8 +256,9 @@ body.rtl .aboutContent p {
 }
 
 /* Flip decorative margins on about image */
-body.rtl .aboutArea .aboutImageWrap {
+body.rtl .aboutArea:not(.consultantArea) .aboutImageWrap {
     margin: -25px -15px 0 auto;
+    transform: translateX(68px);
 }
 
 /* Flip about area background watermark */

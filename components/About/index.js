@@ -64,7 +64,7 @@ const About = ({ subTitle, title, videoId, className = '', signature, pragraphs,
     return (
         <Grid id="about" className={`aboutArea ${className}`}>
             <Grid container spacing={4} className="container">
-                <Grid item md={6} xs={12}
+                <Grid item md={5} xs={12}
                     className="changeOrder">
                     <Grid className="aboutImageWrap">
                         <img src={displayImage} alt="" />
@@ -86,7 +86,7 @@ const About = ({ subTitle, title, videoId, className = '', signature, pragraphs,
                         )}
                     </Grid>
                 </Grid>
-                <Grid item md={6} xs={12}>
+                <Grid item md={7} xs={12}>
                     <Grid className="aboutContent">
                         {subTitle && <span className="subtitle">{subTitle}</span>}
                         <h2>{displayTitle}</h2>

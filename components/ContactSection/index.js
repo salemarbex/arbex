@@ -108,9 +108,11 @@ const ContactSection = ({ className = '' }) => {
                     <Grid className="contactUsInfo">
                         <h3>{t('contact.title')}</h3>
                         <h4>{t('contact.address')}</h4>
-                        <span>{t('contact.addressLine1')}</span>
-                        <span>{t('contact.addressLine2')}</span>
-                        <span>{t('contact.addressLine3')}</span>
+                        <a href="https://maps.google.com/?q=Zone+32,+Street+958,+Building+52,+Doha,+Qatar" target="_blank" rel="noopener noreferrer" className="addressLink">
+                            <span>{t('contact.addressLine1')}</span>
+                            <span>{t('contact.addressLine2')}</span>
+                            <span>{t('contact.addressLine3')}</span>
+                        </a>
                         <h4>{t('contact.phone')}</h4>
                         <span><a href="tel:+97470202010">{t('header.phone')}</a></span>
                         <h4>{t('contact.email')}</h4>
